@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/InicioAdmin"
+            android:icon="@drawable/uno_icon"
+            android:title="@string/InicioAdmin" />
+
+        <item
+            android:id="@+id/PerfilAdmin"
+            android:icon="@drawable/dos_icon"
+            android:title="@string/PerfilAdmin" />
+
+        <item
+            android:id="@+id/RegistrarAdmin"
+            android:icon="@drawable/tres_icon"
+            android:title="@string/RegistrarAdmin" />
+        <item
+            android:id="@+id/ListarAdmin"
+            android:icon="@drawable/cuatro_icon"
+            android:title="@string/ListarAdmin" />
+        <item
+            android:id="@+id/Salir"
+            android:icon="@drawable/cinco_icon"
+            android:title="@string/Salir" />
+
+    </group>
+</menu>

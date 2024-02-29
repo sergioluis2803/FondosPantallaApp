@@ -2,7 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-
     <color name="background_carga">#0C538A</color>
+
+    <color name="colorPrimary">#FE9A2E</color>
+    <color name="colorPrimaryDark">#FA5858</color>
+    <color name="colorAccent">#FE9A2E</color>
 
 </resources>
