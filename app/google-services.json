@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "256090019925",
+    "project_id": "fondos-de-pantalla-51424",
+    "storage_bucket": "fondos-de-pantalla-51424.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:256090019925:android:a844fd5d8dc90be6bbdcdc",
+        "android_client_info": {
+          "package_name": "com.serch.fondosdepantalla"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHXmAxGrnLlwT6bwR3zMucoRMB88EsHbY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
