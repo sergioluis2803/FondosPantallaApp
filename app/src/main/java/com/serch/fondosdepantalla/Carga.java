@@ -26,8 +26,7 @@ public class Carga extends AppCompatActivity {
         final int DURACION = 3000;
 
         new Handler().postDelayed(() -> {
-            //Intent intent = new Intent(Carga.this, MainActivityAdministrador.class);
-            Intent intent = new Intent(Carga.this, MainActivity.class);
+            Intent intent = new Intent(Carga.this, MainActivityAdministrador.class);
             startActivity(intent);
             finish();
         }, DURACION);

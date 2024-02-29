@@ -6,6 +6,9 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <!--ProgressBar-->
+    <string name="text_message">Esperando validación</string>
+
     <!--MENU ADMIN-->
     <string name="InicioAdmin">Inicio</string>
     <string name="PerfilAdmin">Perfil</string>
@@ -19,5 +22,22 @@
     <string name="MasOpcionestxt">Más opciones</string>
     <string name="AcercaDe">Acerca De</string>
     <string name="Compartir">Compartir</string>
+
+    <!--REGISTRO DE ADMINISTRADORES-->
+    <string name="RegistroTXT">Registro de administradores</string>
+    <string name="Correo">Correo electrónico</string>
+    <string name="Password">Contraseña</string>
+    <string name="Nombres">Nombres completos</string>
+    <string name="Apellidos">Apellidos completos</string>
+    <string name="Edad">Edad</string>
+    <string name="FechaDeRegistro">Fecha de Registro</string>
+    <string name="Registrar">Registrar</string>
+
+    <!--NOMBRE DE BOTONES-->
+    <string name="Acceder">Acceder</string>
+
+    <!--LOGIN DE ADMINSITRADORES-->
+    <string name="LoginTXT">Login de administradores</string>
+    <string name="Ingresar">Ingresar</string>
 
 </resources>
