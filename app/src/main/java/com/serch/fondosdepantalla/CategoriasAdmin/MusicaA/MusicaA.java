@@ -1,4 +1,4 @@
-package com.serch.fondosdepantalla.CategoriasAdmin;
+package com.serch.fondosdepantalla.CategoriasAdmin.MusicaA;
 
 import android.os.Bundle;
 import android.view.Menu;

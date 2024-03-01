@@ -43,7 +43,7 @@ public class InicioSesion extends AppCompatActivity {
             String correo = Correo.getText().toString();
             String pass = Password.getText().toString();
 
-            if (correo.equals("") || pass.equals("")) {
+            if (correo.isEmpty() || pass.isEmpty()) {
                 Toast.makeText(this, "Por favor llene todos los campos", Toast.LENGTH_SHORT).show();
             } else {
                 if (!Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {

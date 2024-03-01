@@ -13,16 +13,19 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
-            android:name=".CategoriasAdmin.VideojuegosA"
+            android:name=".CategoriasAdmin.PeliculasA.AgregarPelicula"
             android:exported="false" />
         <activity
-            android:name=".CategoriasAdmin.MusicaA"
+            android:name=".CategoriasAdmin.VideojuegosA.VideojuegosA"
             android:exported="false" />
         <activity
-            android:name=".CategoriasAdmin.SeriesA"
+            android:name=".CategoriasAdmin.MusicaA.MusicaA"
             android:exported="false" />
         <activity
-            android:name=".CategoriasAdmin.PeliculasA"
+            android:name=".CategoriasAdmin.SeriesA.SeriesA"
+            android:exported="false" />
+        <activity
+            android:name=".CategoriasAdmin.PeliculasA.PeliculasA"
             android:exported="false" />
         <activity
             android:name=".InicioSesion"

@@ -1,4 +1,4 @@
-package com.serch.fondosdepantalla.CategoriasAdmin;
+package com.serch.fondosdepantalla.CategoriasAdmin.VideojuegosA;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,22 +16,23 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.serch.fondosdepantalla.R;
 
-public class SeriesA extends AppCompatActivity {
+public class VideojuegosA extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_series);
+        setContentView(R.layout.activity_videojuegos);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
+
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
-        actionBar.setTitle("Series");
+        actionBar.setTitle("Videojuegos");
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
     }

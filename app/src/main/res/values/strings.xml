@@ -7,7 +7,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <!--ProgressBar-->
-    <string name="text_message">Esperando validación</string>
+    <string name="text_message">Espere por favor</string>
 
     <!--MENU ADMIN-->
     <string name="InicioAdmin">Inicio</string>
@@ -50,4 +50,13 @@
     <!--MENU PARTE SUPERIOR DERECHA-->
     <string name="Agregar">Agregar</string>
     <string name="Vista">Vista</string>
+
+    <!--AGREGAR PELICULAS-->
+    <string name="NombreTXTPeliculas">Nombre de imagen</string>
+    <string name="NombrePeliculas">Escriba nombre aqui</string>
+    <string name="VistaPeliculas">0</string>
+    <string name="PublicarPelicula">Publicar</string>
+    <string name="NombreImagenPelicula"> -- </string>
+    <string name="VistaPelicula"> -- </string>
+
 </resources>

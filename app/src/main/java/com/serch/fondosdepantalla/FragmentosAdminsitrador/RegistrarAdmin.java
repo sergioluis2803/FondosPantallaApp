@@ -63,7 +63,7 @@ public class RegistrarAdmin extends Fragment {
             String apellidos = Apellidos.getText().toString();
             String edad = Edad.getText().toString();
 
-            if (correo.equals("") || pass.equals("") || nombres.equals("") || apellidos.equals("") || edad.equals("")) {
+            if (correo.isEmpty() || pass.isEmpty() || nombres.isEmpty() || apellidos.isEmpty() || edad.isEmpty()) {
                 Toast.makeText(getActivity(), "Por favor llene todos los campos", Toast.LENGTH_SHORT).show();
             } else {
                 if (!Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {

@@ -3,6 +3,7 @@ package com.serch.fondosdepantalla.FragmentosAdminsitrador;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -10,10 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.serch.fondosdepantalla.CategoriasAdmin.MusicaA;
-import com.serch.fondosdepantalla.CategoriasAdmin.PeliculasA;
-import com.serch.fondosdepantalla.CategoriasAdmin.SeriesA;
-import com.serch.fondosdepantalla.CategoriasAdmin.VideojuegosA;
+import com.serch.fondosdepantalla.CategoriasAdmin.MusicaA.MusicaA;
+import com.serch.fondosdepantalla.CategoriasAdmin.PeliculasA.PeliculasA;
+import com.serch.fondosdepantalla.CategoriasAdmin.SeriesA.SeriesA;
+import com.serch.fondosdepantalla.CategoriasAdmin.VideojuegosA.VideojuegosA;
 import com.serch.fondosdepantalla.R;
 
 public class InicioAdmin extends Fragment {
@@ -37,4 +38,15 @@ public class InicioAdmin extends Fragment {
 
         return view;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+            }
+        });
+    }
+
 }

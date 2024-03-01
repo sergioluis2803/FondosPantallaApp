@@ -1,4 +1,4 @@
-package com.serch.fondosdepantalla.CategoriasAdmin;
+package com.serch.fondosdepantalla.CategoriasAdmin.SeriesA;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -6,22 +6,32 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.serch.fondosdepantalla.R;
 
-public class PeliculasA extends AppCompatActivity {
+public class SeriesA extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_peliculas);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_series);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
 
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
-        actionBar.setTitle("Películas");
+        actionBar.setTitle("Series");
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
@@ -31,7 +41,6 @@ public class PeliculasA extends AppCompatActivity {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu_agregar, menu);
         menuInflater.inflate(R.menu.menu_vista, menu);
-        
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -39,7 +48,7 @@ public class PeliculasA extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId()==R.id.Agregar){
             Toast.makeText(this, "Agregar imagen", Toast.LENGTH_SHORT).show();
-        } else if (item.getItemId()==R.id.Vista) {
+        }else if (item.getItemId()==R.id.Vista) {
             Toast.makeText(this, "Listar imagenes", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
