@@ -40,4 +40,14 @@
     <string name="LoginTXT">Login de administradores</string>
     <string name="Ingresar">Ingresar</string>
 
+    <!--CATEGORIAS-->
+    <string name="Eligeunacategoria">Elige categoria</string>
+    <string name="Peliculas">PELICULAS</string>
+    <string name="Series">SERIES</string>
+    <string name="Musica">MUSICA</string>
+    <string name="Videojuegos">VIDEOJUEGOS</string>
+
+    <!--MENU PARTE SUPERIOR DERECHA-->
+    <string name="Agregar">Agregar</string>
+    <string name="Vista">Vista</string>
 </resources>
