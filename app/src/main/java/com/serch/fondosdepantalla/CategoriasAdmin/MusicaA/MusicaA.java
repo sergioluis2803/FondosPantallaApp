@@ -1,5 +1,6 @@
 package com.serch.fondosdepantalla.CategoriasAdmin.MusicaA;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -52,9 +53,9 @@ public class MusicaA extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId()==R.id.Agregar){
-            Toast.makeText(this, "Agregar imagen", Toast.LENGTH_SHORT).show();
-        }else if (item.getItemId()==R.id.Vista) {
+        if (item.getItemId() == R.id.Agregar) {
+            startActivity(new Intent(this, AgregarMusica.class));
+        } else if (item.getItemId() == R.id.Vista) {
             Toast.makeText(this, "Listar imagenes", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);

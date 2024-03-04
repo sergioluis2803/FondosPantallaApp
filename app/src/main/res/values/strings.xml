@@ -59,4 +59,12 @@
     <string name="NombreImagenPelicula"> -- </string>
     <string name="VistaPelicula"> -- </string>
 
+    <!--AGREGAR MUSICA-->
+    <string name="NombreTXTMusica">Nombre de imagen</string>
+    <string name="NombreMusica">Escriba nombre aqui</string>
+    <string name="VistaMusicas">0</string>
+    <string name="PublicarMusica">Publicar</string>
+    <string name="NombreImagenMusica"> -- </string>
+    <string name="VistaMusica"> -- </string>
+
 </resources>
