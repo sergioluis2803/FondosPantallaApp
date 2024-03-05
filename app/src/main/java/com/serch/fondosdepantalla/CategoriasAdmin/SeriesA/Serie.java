@@ -6,6 +6,9 @@ public class Serie {
     private String nombres;
     private int vistas;
 
+    public Serie() {
+    }
+
     public Serie(String imagen, String nombres, int vistas) {
         this.imagen = imagen;
         this.nombres = nombres;

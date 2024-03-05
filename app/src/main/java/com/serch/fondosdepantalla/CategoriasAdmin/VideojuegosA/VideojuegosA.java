@@ -1,5 +1,6 @@
 package com.serch.fondosdepantalla.CategoriasAdmin.VideojuegosA;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,6 +15,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.serch.fondosdepantalla.CategoriasAdmin.SeriesA.AgregarSerie;
 import com.serch.fondosdepantalla.R;
 
 public class VideojuegosA extends AppCompatActivity {
@@ -48,7 +50,7 @@ public class VideojuegosA extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId()==R.id.Agregar){
-            Toast.makeText(this, "Agregar imagen", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, AgregarVideojuego.class));
         }else if (item.getItemId()==R.id.Vista) {
             Toast.makeText(this, "Listar imagenes", Toast.LENGTH_SHORT).show();
         }

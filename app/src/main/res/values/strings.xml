@@ -75,4 +75,12 @@
     <string name="NombreImagenSerie"> -- </string>
     <string name="VistaSerie"> -- </string>
 
+    <!--AGREGAR VIDEOJUEGO-->
+    <string name="NombreTXTVideojuego">Nombre de imagen</string>
+    <string name="NombreVideojuego">Escriba nombre aqui</string>
+    <string name="VistaVideojuegos">0</string>
+    <string name="PublicarVideojuego">Publicar</string>
+    <string name="NombreImagenVideojuego"> -- </string>
+    <string name="VistaVideojuego"> -- </string>
+
 </resources>

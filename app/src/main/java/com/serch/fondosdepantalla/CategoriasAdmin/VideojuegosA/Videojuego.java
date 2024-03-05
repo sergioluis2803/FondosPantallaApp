@@ -1,17 +1,18 @@
-package com.serch.fondosdepantalla.CategoriasAdmin.PeliculasA;
+package com.serch.fondosdepantalla.CategoriasAdmin.VideojuegosA;
 
-public class Pelicula {
+public class Videojuego {
+
     private String imagen;
     private String nombres;
     private int vistas;
 
-    public Pelicula(String imagen, String nombres, int vistas) {
+    public Videojuego() {
+    }
+
+    public Videojuego(String imagen, String nombres, int vistas) {
         this.imagen = imagen;
         this.nombres = nombres;
         this.vistas = vistas;
-    }
-
-    public Pelicula() {
     }
 
     public String getImagen() {

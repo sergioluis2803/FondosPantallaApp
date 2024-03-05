@@ -5,6 +5,9 @@ public class Musica {
     private String nombres;
     private int vistas;
 
+    public Musica() {
+    }
+
     public Musica(String imagen, String nombres, int vistas) {
         this.imagen = imagen;
         this.nombres = nombres;
