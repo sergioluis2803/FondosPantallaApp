@@ -67,4 +67,12 @@
     <string name="NombreImagenMusica"> -- </string>
     <string name="VistaMusica"> -- </string>
 
+    <!--AGREGAR SERIE-->
+    <string name="NombreTXTSerie">Nombre de imagen</string>
+    <string name="NombreSerie">Escriba nombre aqui</string>
+    <string name="VistaSeries">0</string>
+    <string name="PublicarSerie">Publicar</string>
+    <string name="NombreImagenSerie"> -- </string>
+    <string name="VistaSerie"> -- </string>
+
 </resources>
