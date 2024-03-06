@@ -12,15 +12,23 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.StorageReference;
 import com.serch.fondosdepantalla.R;
+
+import static com.google.firebase.storage.FirebaseStorage.getInstance;
 
 public class PeliculasA extends AppCompatActivity {
 
@@ -60,13 +68,44 @@ public class PeliculasA extends AppCompatActivity {
         }
     }
 
+    private void EliminarDatos(final String NombreActual, final String ImagenActual) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(PeliculasA.this);
+        builder.setTitle("Eliminar");
+        builder.setMessage("¿Desea eliminar imagen?");
+        builder.setPositiveButton("SI", (dialogInterface, i) -> {
+            Query query = mRef.orderByChild("nombre").equalTo(NombreActual);
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        ds.getRef().removeValue();
+                    }
+
+                    Toast.makeText(PeliculasA.this, "La imagen ha sido eliminada", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(PeliculasA.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            StorageReference imagenSeleccionada = getInstance().getReferenceFromUrl(ImagenActual);
+            imagenSeleccionada.delete().addOnSuccessListener(unused -> Toast.makeText(PeliculasA.this, "Eliminado", Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> Toast.makeText(PeliculasA.this, e.getMessage(), Toast.LENGTH_SHORT).show());
+        });
+
+        builder.setNegativeButton("NO", (dialogInterface, i) -> Toast.makeText(PeliculasA.this, "Cancelado por administrador", Toast.LENGTH_SHORT).show());
+
+        builder.create().show();
+    }
+
     private void ListarImagenesPeliculas() {
         options = new FirebaseRecyclerOptions.Builder<Pelicula>().setQuery(mRef, Pelicula.class).build();
 
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Pelicula, ViewHolderPelicula>(options) {
             @Override
             protected void onBindViewHolder(@NonNull ViewHolderPelicula viewHolderPelicula, int i, @NonNull Pelicula pelicula) {
-                viewHolderPelicula.SeteoPeliculas(getApplicationContext(), pelicula.getNombres(), pelicula.getVistas(), pelicula.getImagen());
+                viewHolderPelicula.SeteoPeliculas(getApplicationContext(), pelicula.getNombre(), pelicula.getVistas(), pelicula.getImagen());
             }
 
             @NonNull
@@ -83,7 +122,23 @@ public class PeliculasA extends AppCompatActivity {
 
                     @Override
                     public void OnItemLongClick(View view, int position) {
-                        Toast.makeText(PeliculasA.this, "LONG CLICK", Toast.LENGTH_SHORT).show();
+
+                        String nombre = getItem(position).getNombre();
+                        String imagen = getItem(position).getImagen();
+                        int vista = getItem(position).getVistas();
+                        String vistaString = String.valueOf(vista);
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(PeliculasA.this);
+                        String[] opciones = {"Actualizar", "Eliminar"};
+
+                        builder.setItems(opciones, (dialogInterface, i) -> {
+                            if (i == 0) {
+                                Toast.makeText(PeliculasA.this, "ACTUALIZAR", Toast.LENGTH_SHORT).show();
+                            } else {
+                                EliminarDatos(nombre, imagen);
+                            }
+                        });
+                        builder.create().show();
                     }
                 });
                 return viewHolderPelicula;

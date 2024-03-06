@@ -2,12 +2,12 @@ package com.serch.fondosdepantalla.CategoriasAdmin.PeliculasA;
 
 public class Pelicula {
     private String imagen;
-    private String nombres;
+    private String nombre;
     private int vistas;
 
     public Pelicula(String imagen, String nombres, int vistas) {
         this.imagen = imagen;
-        this.nombres = nombres;
+        this.nombre = nombres;
         this.vistas = vistas;
     }
 
@@ -22,12 +22,12 @@ public class Pelicula {
         this.imagen = imagen;
     }
 
-    public String getNombres() {
-        return nombres;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public int getVistas() {

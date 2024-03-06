@@ -2,7 +2,7 @@ package com.serch.fondosdepantalla.CategoriasAdmin.MusicaA;
 
 public class Musica {
     private String imagen;
-    private String nombres;
+    private String nombre;
     private int vistas;
 
     public Musica() {
@@ -10,7 +10,7 @@ public class Musica {
 
     public Musica(String imagen, String nombres, int vistas) {
         this.imagen = imagen;
-        this.nombres = nombres;
+        this.nombre = nombres;
         this.vistas = vistas;
     }
 
@@ -23,12 +23,12 @@ public class Musica {
         this.imagen = imagen;
     }
 
-    public String getNombres() {
-        return nombres;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public int getVistas() {
