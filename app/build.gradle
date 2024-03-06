@@ -52,6 +52,8 @@ dependencies {
     implementation 'androidx.activity:activity:1.8.2'
     //firebase - storage
     implementation 'com.google.firebase:firebase-storage:20.3.0'
+    //firebase - database
+    implementation 'com.firebaseui:firebase-ui-database:8.0.0'
 
     //picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
