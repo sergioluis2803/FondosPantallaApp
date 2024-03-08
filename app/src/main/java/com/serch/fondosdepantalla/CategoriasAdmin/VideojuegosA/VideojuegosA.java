@@ -109,7 +109,12 @@ public class VideojuegosA extends AppCompatActivity {
 
                         builder.setItems(opciones, (dialogInterface, i) -> {
                             if (i == 0) {
-                                Toast.makeText(VideojuegosA.this, "ACTUALIZAR", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(VideojuegosA.this, AgregarVideojuego.class);
+                                intent.putExtra("NombreEnviado", nombre);
+                                intent.putExtra("ImagenEnviada", imagen);
+                                intent.putExtra("VistaEnviada", vistaString);
+
+                                startActivity(intent);
                             } else {
                                 EliminarDatos(nombre, imagen);
                             }
