@@ -1,6 +1,9 @@
 package com.serch.fondosdepantalla.CategoriasAdmin.PeliculasA;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -8,6 +11,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -39,6 +44,9 @@ public class PeliculasA extends AppCompatActivity {
     FirebaseRecyclerAdapter<Pelicula, ViewHolderPelicula> firebaseRecyclerAdapter;
     FirebaseRecyclerOptions<Pelicula> options;
 
+    SharedPreferences sharedPreferences;
+    Dialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,12 +58,13 @@ public class PeliculasA extends AppCompatActivity {
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-
         recyclerViewPelicula = findViewById(R.id.recyclerViewPelicula);
         recyclerViewPelicula.setHasFixedSize(true);
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mRef = mFirebaseDatabase.getReference("PELICULAS");
+
+        dialog = new Dialog(PeliculasA.this);
 
         ListarImagenesPeliculas();
     }
@@ -150,9 +159,19 @@ public class PeliculasA extends AppCompatActivity {
             }
         };
 
-        recyclerViewPelicula.setLayoutManager(new GridLayoutManager(PeliculasA.this, 2));
-        firebaseRecyclerAdapter.startListening();
-        recyclerViewPelicula.setAdapter(firebaseRecyclerAdapter);
+        sharedPreferences = PeliculasA.this.getSharedPreferences("PELICULAS", MODE_PRIVATE);
+        String ordenar_en = sharedPreferences.getString("Ordenar", "Dos");
+
+        if (ordenar_en.equals("Dos")) {
+            recyclerViewPelicula.setLayoutManager(new GridLayoutManager(PeliculasA.this, 2));
+            firebaseRecyclerAdapter.startListening();
+            recyclerViewPelicula.setAdapter(firebaseRecyclerAdapter);
+        } else if (ordenar_en.equals("Tres")) {
+            recyclerViewPelicula.setLayoutManager(new GridLayoutManager(PeliculasA.this, 3));
+            firebaseRecyclerAdapter.startListening();
+            recyclerViewPelicula.setAdapter(firebaseRecyclerAdapter);
+        }
+
     }
 
     @Override
@@ -170,9 +189,45 @@ public class PeliculasA extends AppCompatActivity {
             startActivity(new Intent(this, AgregarPelicula.class));
             finish();
         } else if (item.getItemId() == R.id.Vista) {
-            Toast.makeText(this, "Listar imagenes", Toast.LENGTH_SHORT).show();
+            Ordenar_Imagenes();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void Ordenar_Imagenes() {
+        String ubicacion = "fuentes/sans_negrita.ttf";
+        Typeface tf = Typeface.createFromAsset(PeliculasA.this.getAssets(), ubicacion);
+
+        TextView OrdenarTXT;
+        Button Dos_Columnas, Tres_Columnas;
+
+        dialog.setContentView(R.layout.dialog_ordenar);
+
+        OrdenarTXT = dialog.findViewById(R.id.OrdenarTXT);
+        Dos_Columnas = dialog.findViewById(R.id.Dos_Columnas);
+        Tres_Columnas = dialog.findViewById(R.id.Tres_Columnas);
+
+        dialog.show();
+
+        OrdenarTXT.setTypeface(tf);
+        Dos_Columnas.setTypeface(tf);
+        Tres_Columnas.setTypeface(tf);
+
+        Dos_Columnas.setOnClickListener(task -> {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("Ordenar", "Dos");
+            editor.apply();
+            recreate();
+            dialog.dismiss();
+        });
+
+        Tres_Columnas.setOnClickListener(task -> {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("Ordenar", "Tres");
+            editor.apply();
+            recreate();
+            dialog.dismiss();
+        });
     }
 
     @Override

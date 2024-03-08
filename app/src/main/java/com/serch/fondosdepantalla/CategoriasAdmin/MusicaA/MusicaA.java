@@ -2,7 +2,10 @@ package com.serch.fondosdepantalla.CategoriasAdmin.MusicaA;
 
 import static com.google.firebase.storage.FirebaseStorage.getInstance;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -10,6 +13,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -42,6 +47,9 @@ public class MusicaA extends AppCompatActivity {
     FirebaseRecyclerAdapter<Musica, ViewHolderMusica> firebaseRecyclerAdapter;
     FirebaseRecyclerOptions<Musica> options;
 
+    SharedPreferences sharedPreferences;
+    Dialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +71,8 @@ public class MusicaA extends AppCompatActivity {
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mRef = mFirebaseDatabase.getReference("MUSICA");
+
+        dialog = new Dialog(MusicaA.this);
 
         ListarImagenesMusica();
     }
@@ -124,10 +134,18 @@ public class MusicaA extends AppCompatActivity {
                 return viewHolderMusica;
             }
         };
+        sharedPreferences = MusicaA.this.getSharedPreferences("MUSICA", MODE_PRIVATE);
+        String ordenar_en = sharedPreferences.getString("Ordenar", "Dos");
 
-        recyclerViewMusica.setLayoutManager(new GridLayoutManager(MusicaA.this, 2));
-        firebaseRecyclerAdapter.startListening();
-        recyclerViewMusica.setAdapter(firebaseRecyclerAdapter);
+        if (ordenar_en.equals("Dos")) {
+            recyclerViewMusica.setLayoutManager(new GridLayoutManager(MusicaA.this, 2));
+            firebaseRecyclerAdapter.startListening();
+            recyclerViewMusica.setAdapter(firebaseRecyclerAdapter);
+        } else if (ordenar_en.equals("Tres")) {
+            recyclerViewMusica.setLayoutManager(new GridLayoutManager(MusicaA.this, 3));
+            firebaseRecyclerAdapter.startListening();
+            recyclerViewMusica.setAdapter(firebaseRecyclerAdapter);
+        }
     }
 
     private void EliminarDatos(final String NombreActual, final String ImagenActual) {
@@ -181,9 +199,45 @@ public class MusicaA extends AppCompatActivity {
             startActivity(new Intent(this, AgregarMusica.class));
             finish();
         } else if (item.getItemId() == R.id.Vista) {
-            Toast.makeText(this, "Listar imagenes", Toast.LENGTH_SHORT).show();
+            Ordenar_Imagenes();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void Ordenar_Imagenes() {
+        String ubicacion = "fuentes/sans_negrita.ttf";
+        Typeface tf = Typeface.createFromAsset(MusicaA.this.getAssets(), ubicacion);
+
+        TextView OrdenarTXT;
+        Button Dos_Columnas, Tres_Columnas;
+
+        dialog.setContentView(R.layout.dialog_ordenar);
+
+        OrdenarTXT = dialog.findViewById(R.id.OrdenarTXT);
+        Dos_Columnas = dialog.findViewById(R.id.Dos_Columnas);
+        Tres_Columnas = dialog.findViewById(R.id.Tres_Columnas);
+
+        dialog.show();
+
+        OrdenarTXT.setTypeface(tf);
+        Dos_Columnas.setTypeface(tf);
+        Tres_Columnas.setTypeface(tf);
+
+        Dos_Columnas.setOnClickListener(task -> {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("Ordenar", "Dos");
+            editor.apply();
+            recreate();
+            dialog.dismiss();
+        });
+
+        Tres_Columnas.setOnClickListener(task -> {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("Ordenar", "Tres");
+            editor.apply();
+            recreate();
+            dialog.dismiss();
+        });
     }
 
 }

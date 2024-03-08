@@ -83,4 +83,8 @@
     <string name="NombreImagenVideojuego"> -- </string>
     <string name="VistaVideojuego"> -- </string>
 
+    <!--DIALOG ORDENAR-->
+    <string name="OrdenarTXT">Ordenar en: </string>
+    <string name="Dos_Columnas">2 Columnas</string>
+    <string name="Tres_Columnas">3 Columnas</string>
 </resources>
