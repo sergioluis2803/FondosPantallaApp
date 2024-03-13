@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".Detalle.Detalle_Administrador">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/DetalleTXT"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ImagenDetalleAdmin"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/admin_item" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/black" />
+
+        <TextView
+            android:id="@+id/UidDetalleAdmin"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="@string/UidDetalleAdmin"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/NombresDetalleAdmin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="@string/NombresDetalleAdmin"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/ApellidosDetalleAdmin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="@string/ApellidosDetalleAdmin"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/CorreoDetalleAdmin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="@string/CorreoDetalleAdmin"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/EdadDetalleAdmin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="@string/EdadDetalleAdmin"
+            android:textSize="15sp" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</RelativeLayout>

@@ -87,4 +87,46 @@
     <string name="OrdenarTXT">Ordenar en: </string>
     <string name="Dos_Columnas">2 Columnas</string>
     <string name="Tres_Columnas">3 Columnas</string>
+
+    <!--PERFIL-->
+    <string name="PERFILADMINISTRADORTXT">MI PERFIL</string>
+    <string name="MIINFORMACIONTXT">MI INFORMACION</string>
+    <string name="UIDPERFILTXT">Uid: </string>
+    <string name="UIDPERFIL"> -- </string>
+    <string name="NOMBRESPERFILTXT">Nombres: </string>
+    <string name="NOMBRESPERFIL"> -- </string>
+    <string name="APELLIDOSPERFILTXT">Apellidos: </string>
+    <string name="APELLIDOSPERFIL"> -- </string>
+    <string name="CORREOPERFILTXT">Correo: </string>
+    <string name="CORREOPERFIL"> -- </string>
+    <string name="PASSWORDPERFILTXT">Password: </string>
+    <string name="PASSWORDPERFIL"> -- </string>
+    <string name="EDADPERFILTXT">Edad: </string>
+    <string name="EDADPERFIL"> -- </string>
+    <string name="ACTUALIZARPASS">Actualizar password</string>
+    <string name="ACTUALIZARDATOS">Actualizar Datos</string>
+
+    <!--CAMBIAR DE CONTRASEÑA-->
+    <string name="MisCredencialesTXT">Mis credenciales</string>
+    <string name="PassActualTXT">Contraseña actual: </string>
+    <string name="PassActual"> -- </string>
+    <string name="ActualPassET"> Contraseña Actual </string>
+    <string name="NuevoPassET"> Nueva Contraseña </string>
+    <string name="CAMBIARPASSBTN"> CAMBIAR CONTRASEÑA </string>
+    <string name="IRINICIOBTN"> IR INICIO </string>
+    <string name="NOTATXT">Nota: Si cambia la contraseña, se cerrará sesión automáticamente</string>
+
+    <!--ADMINISTRADOR ITEM-->
+    <string name="NombresADMIN"> Nombres </string>
+    <string name="CorreoADMIN"> Correo Electrónico </string>
+
+    <string name="buscar_administrador">Buscar</string>
+
+    <!--DETALLE ADMINISTRADOR-->
+    <string name="DetalleTXT">Detalle del Administrador</string>
+    <string name="UidDetalleAdmin">UID</string>
+    <string name="NombresDetalleAdmin">NOMBRES</string>
+    <string name="ApellidosDetalleAdmin">APELLIDOS</string>
+    <string name="CorreoDetalleAdmin">CORREO</string>
+    <string name="EdadDetalleAdmin">EDAD</string>
 </resources>
