@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.serch.fondosdepantalla.R;
 
-public class CompartirCliente extends Fragment {
+public class Share extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

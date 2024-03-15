@@ -17,24 +17,24 @@ import com.serch.fondosdepantalla.CategoriasAdmin.SeriesA.SeriesA;
 import com.serch.fondosdepantalla.CategoriasAdmin.VideojuegosA.VideojuegosA;
 import com.serch.fondosdepantalla.R;
 
-public class InicioAdmin extends Fragment {
+public class HomeAdmin extends Fragment {
 
-    Button Peliculas, Series, Musica, Videojuegos;
+    Button movies, series, music, videoGames;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_inicio_admin, container, false);
 
-        Peliculas = view.findViewById(R.id.Peliculas);
-        Series = view.findViewById(R.id.Series);
-        Musica = view.findViewById(R.id.Musica);
-        Videojuegos = view.findViewById(R.id.Videojuegos);
+        movies = view.findViewById(R.id.Peliculas);
+        series = view.findViewById(R.id.Series);
+        music = view.findViewById(R.id.Musica);
+        videoGames = view.findViewById(R.id.Videojuegos);
 
-        Peliculas.setOnClickListener(task -> startActivity(new Intent(getActivity(), PeliculasA.class)));
-        Series.setOnClickListener(task -> startActivity(new Intent(getActivity(), SeriesA.class)));
-        Musica.setOnClickListener(task -> startActivity(new Intent(getActivity(), MusicaA.class)));
-        Videojuegos.setOnClickListener(task -> startActivity(new Intent(getActivity(), VideojuegosA.class)));
+        movies.setOnClickListener(task -> startActivity(new Intent(getActivity(), PeliculasA.class)));
+        series.setOnClickListener(task -> startActivity(new Intent(getActivity(), SeriesA.class)));
+        music.setOnClickListener(task -> startActivity(new Intent(getActivity(), MusicaA.class)));
+        videoGames.setOnClickListener(task -> startActivity(new Intent(getActivity(), VideojuegosA.class)));
 
         return view;
     }

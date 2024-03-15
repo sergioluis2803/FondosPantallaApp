@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,18 +24,18 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.serch.fondosdepantalla.Adaptador.Adaptador;
+import com.serch.fondosdepantalla.Adaptador.Adapter;
 import com.serch.fondosdepantalla.Modelo.Administrador;
 import com.serch.fondosdepantalla.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListaAdmin extends Fragment {
+public class ListAdmin extends Fragment {
 
     RecyclerView administradores_recyclerView;
-    Adaptador adaptador;
-    List<Administrador> administradores;
+    Adapter adapter;
+    List<Administrador> listAdmin;
     FirebaseAuth firebaseAuth;
 
     @Override
@@ -47,69 +46,65 @@ public class ListaAdmin extends Fragment {
         administradores_recyclerView = view.findViewById(R.id.administradores_recyclerView);
         administradores_recyclerView.setHasFixedSize(true);
         administradores_recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-        administradores = new ArrayList<>();
+        listAdmin = new ArrayList<>();
 
         firebaseAuth = FirebaseAuth.getInstance();
-
-        ObtenerLista();
+        getListResult();
 
         return view;
     }
 
-    private void ObtenerLista() {
+    private void getListResult() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("BASE DE DATOS ADMINISTRADORES");
         reference.orderByChild("APELLIDOS").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                administradores.clear();
+                listAdmin.clear();
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     Administrador administrador = ds.getValue(Administrador.class);
 
                     assert administrador != null;
                     assert user != null;
                     if (!administrador.getUID().equals(user.getUid())) {
-                        administradores.add(administrador);
+                        listAdmin.add(administrador);
                     }
-                    adaptador = new Adaptador(getActivity(), administradores);
-                    administradores_recyclerView.setAdapter(adaptador);
+                    adapter = new Adapter(getActivity(), listAdmin);
+                    administradores_recyclerView.setAdapter(adapter);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
 
-    private void BuscarAdministrador(String consulta) {
+    private void searchAdmin(String adminSearch) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("BASE DE DATOS ADMINISTRADORES");
         reference.orderByChild("APELLIDOS").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                administradores.clear();
+                listAdmin.clear();
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     Administrador administrador = ds.getValue(Administrador.class);
 
                     assert administrador != null;
                     assert user != null;
                     if (!administrador.getUID().equals(user.getUid())) {
-
-                        if (administrador.getNOMBRES().toLowerCase().contains(consulta.toLowerCase()) ||
-                                administrador.getCORREO().toLowerCase().contains(consulta.toLowerCase())) {
-                            administradores.add(administrador);
+                        if (administrador.getNOMBRES().toLowerCase().contains(adminSearch.toLowerCase()) ||
+                                administrador.getCORREO().toLowerCase().contains(adminSearch.toLowerCase())) {
+                            listAdmin.add(administrador);
                         }
                     }
-                    adaptador = new Adaptador(getActivity(), administradores);
-                    administradores_recyclerView.setAdapter(adaptador);
+                    adapter = new Adapter(getActivity(), listAdmin);
+                    administradores_recyclerView.setAdapter(adapter);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
@@ -119,26 +114,26 @@ public class ListaAdmin extends Fragment {
         inflater.inflate(R.menu.menu_buscar, menu);
         MenuItem item = menu.findItem(R.id.buscar_administrador);
 
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+        //SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+        SearchView searchView = (SearchView) item.getActionView();
+        assert searchView != null;
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String consulta) {
-
-                if (!TextUtils.isEmpty(consulta.trim())) {
-                    BuscarAdministrador(consulta);
+            public boolean onQueryTextSubmit(String query) {
+                if (!TextUtils.isEmpty(query.trim())) {
+                    searchAdmin(query);
                 } else {
-                    ObtenerLista();
+                    getListResult();
                 }
                 return false;
             }
 
             @Override
-            public boolean onQueryTextChange(String consulta) {
-
-                if (!TextUtils.isEmpty(consulta.trim())) {
-                    BuscarAdministrador(consulta);
+            public boolean onQueryTextChange(String query) {
+                if (!TextUtils.isEmpty(query.trim())) {
+                    searchAdmin(query);
                 } else {
-                    ObtenerLista();
+                    getListResult();
                 }
                 return false;
             }

@@ -10,20 +10,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.serch.fondosdepantalla.InicioSesion;
+import com.serch.fondosdepantalla.LoginSession;
 import com.serch.fondosdepantalla.R;
 
-public class AcercaDeCliente extends Fragment {
+public class Info extends Fragment {
 
-    Button Acceder;
+    Button Login;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_acerca_de_cliente, container, false);
 
-        Acceder = view.findViewById(R.id.Acceder);
-        Acceder.setOnClickListener(view1 -> startActivity(new Intent(getActivity(), InicioSesion.class)));
+        Login = view.findViewById(R.id.Acceder);
+        Login.setOnClickListener(view1 -> startActivity(new Intent(getActivity(), LoginSession.class)));
 
         return view;
     }

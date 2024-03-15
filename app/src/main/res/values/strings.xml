@@ -32,13 +32,23 @@
     <string name="Edad">Edad</string>
     <string name="FechaDeRegistro">Fecha de Registro</string>
     <string name="Registrar">Registrar</string>
+    <string name="message_register_alert">Por favor llene todos los campos</string>
+    <string name="register_success">Registro exitoso</string>
 
     <!--NOMBRE DE BOTONES-->
     <string name="Acceder">Acceder</string>
 
-    <!--LOGIN DE ADMINSITRADORES-->
+    <!--LOGIN-->
     <string name="LoginTXT">Login de administradores</string>
     <string name="Ingresar">Ingresar</string>
+    <string name="login">Inicio sesión</string>
+    <string name="empty_box">Por favor llene todos los campos</string>
+    <string name="email_invalid">Correo inválido</string>
+    <string name="password_invalid">Contraseña debe ser mayor o igual a 6</string>
+    <string name="error">Ha ocurrido un error</string>
+    <string name="error_credentials">VERIFIQUE SU CORREO Y CONTRASEÑA</string>
+    <string name="ok">Entendido</string>
+    <string name="login_load">Iniciando sesión</string>
 
     <!--CATEGORIAS-->
     <string name="Eligeunacategoria">Elige categoria</string>
@@ -105,6 +115,26 @@
     <string name="EDADPERFIL"> -- </string>
     <string name="ACTUALIZARPASS">Actualizar password</string>
     <string name="ACTUALIZARDATOS">Actualizar Datos</string>
+    <string name="choose_option">Elegir opción: </string>
+    <string name="title_choose_option">Actualizar información: </string>
+    <string name="enter_new_data">Ingrese nuevo dato </string>
+    <string name="button_positive">Actualizar </string>
+    <string name="new_data_update">Dato actualizado </string>
+    <string name="text_empty">Campo vacío</string>
+    <string name="button_negative">Cancelar</string>
+    <string name="message_cancel">Cancelado por el usuario</string>
+    <string name="select_photo_from">Seleccionar imagen de:</string>
+    <string name="permission_denied">Permiso denegado</string>
+    <string name="change_image_success">Imagen cambiada con éxito</string>
+    <string-array name="options">
+        <item>Editar nombres</item>
+        <item>Editar apellidos</item>
+        <item>Editar edad</item>
+    </string-array>
+    <string-array name="choose_photo_option">
+        <item>Cámara</item>
+        <item>Galería</item>
+    </string-array>
 
     <!--CAMBIAR DE CONTRASEÑA-->
     <string name="MisCredencialesTXT">Mis credenciales</string>
@@ -112,9 +142,12 @@
     <string name="PassActual"> -- </string>
     <string name="ActualPassET"> Contraseña Actual </string>
     <string name="NuevoPassET"> Nueva Contraseña </string>
-    <string name="CAMBIARPASSBTN"> CAMBIAR CONTRASEÑA </string>
+    <string name="change_password"> Cambiar contraseña </string>
     <string name="IRINICIOBTN"> IR INICIO </string>
     <string name="NOTATXT">Nota: Si cambia la contraseña, se cerrará sesión automáticamente</string>
+    <string name="password_success_change">Contraseña cambiada</string>
+    <string name="password_text_empty">El campo contraseña actual está vacío</string>
+    <string name="passwordNew_text_empty">El campo contraseña nueva está vacío</string>
 
     <!--ADMINISTRADOR ITEM-->
     <string name="NombresADMIN"> Nombres </string>
@@ -129,4 +162,5 @@
     <string name="ApellidosDetalleAdmin">APELLIDOS</string>
     <string name="CorreoDetalleAdmin">CORREO</string>
     <string name="EdadDetalleAdmin">EDAD</string>
+    <string name="detail_toolbar">Detalle</string>
 </resources>

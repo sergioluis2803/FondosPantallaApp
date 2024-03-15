@@ -25,18 +25,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.serch.fondosdepantalla.InicioSesion;
-import com.serch.fondosdepantalla.MainActivityAdministrador;
+import com.serch.fondosdepantalla.LoginSession;
+import com.serch.fondosdepantalla.MainActivityAdmin;
 import com.serch.fondosdepantalla.R;
 import com.serch.fondosdepantalla.util.MyProgressDialog;
 
 import java.util.HashMap;
 
-public class Cambio_Pass extends AppCompatActivity {
+public class ChangePassword extends AppCompatActivity {
 
     TextView PassActual;
     EditText ActualPassET, NuevoPassET;
-    Button CAMBIARPASSBTN, IRINICIOBTN;
+    Button changePasswordBtn, homeBtn;
     DatabaseReference BASE_DE_DATOS_ADMINISTRADORES;
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
@@ -54,13 +54,13 @@ public class Cambio_Pass extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
-        actionBar.setTitle("Cambiar contraseña");
+        actionBar.setTitle(getString(R.string.change_password));
 
         PassActual = findViewById(R.id.PassActual);
         ActualPassET = findViewById(R.id.ActualPassET);
         NuevoPassET = findViewById(R.id.NuevoPassET);
-        CAMBIARPASSBTN = findViewById(R.id.CAMBIARPASSBTN);
-        IRINICIOBTN = findViewById(R.id.IRINICIOBTN);
+        changePasswordBtn = findViewById(R.id.CAMBIARPASSBTN);
+        homeBtn = findViewById(R.id.IRINICIOBTN);
 
         BASE_DE_DATOS_ADMINISTRADORES = FirebaseDatabase.getInstance().getReference("BASE DE DATOS ADMINISTRADORES");
         firebaseAuth = FirebaseAuth.getInstance();
@@ -80,54 +80,53 @@ public class Cambio_Pass extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
 
-        CAMBIARPASSBTN.setOnClickListener(task -> {
+        changePasswordBtn.setOnClickListener(task -> {
             String ACTUAL_PASS = ActualPassET.getText().toString().trim();
             String NUEVO_PASS = NuevoPassET.getText().toString().trim();
 
             if (TextUtils.isEmpty(ACTUAL_PASS)) {
-                Toast.makeText(this, "El campo contraseña actual está vacío", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.password_text_empty), Toast.LENGTH_SHORT).show();
             }
             if (TextUtils.isEmpty(NUEVO_PASS)) {
-                Toast.makeText(this, "El campo contraseña nueva está vacío", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.passwordNew_text_empty), Toast.LENGTH_SHORT).show();
             }
             if (!ACTUAL_PASS.isEmpty() && !NUEVO_PASS.isEmpty() && NUEVO_PASS.length() >= 6) {
-                Cambio_Password(ACTUAL_PASS, NUEVO_PASS);
+                changePassword(ACTUAL_PASS, NUEVO_PASS);
             } else {
-                NuevoPassET.setError("La contraseña debe ser mayor o igual a 6");
+                NuevoPassET.setError(getString(R.string.password_invalid));
                 NuevoPassET.setFocusable(true);
             }
         });
 
-        IRINICIOBTN.setOnClickListener(task -> startActivity(new Intent(this, MainActivityAdministrador.class)));
+        homeBtn.setOnClickListener(task -> startActivity(new Intent(this, MainActivityAdmin.class)));
     }
 
-    private void Cambio_Password(String pass_actual, String nuevo_pass) {
+    private void changePassword(String pass_actual, String newPassword) {
         progressDialog.show();
 
         AuthCredential authCredential = EmailAuthProvider.getCredential(user.getEmail(), pass_actual);
-        user.reauthenticate(authCredential).addOnSuccessListener(unused -> user.updatePassword(nuevo_pass).addOnSuccessListener(unused1 -> {
+        user.reauthenticate(authCredential).addOnSuccessListener(unused -> user.updatePassword(newPassword).addOnSuccessListener(unused1 -> {
             progressDialog.dismiss();
             String NUEVO_PASS = NuevoPassET.getText().toString().trim();
-            HashMap<String, Object> resultado = new HashMap<>();
-            resultado.put("PASSWORD", NUEVO_PASS);
-            BASE_DE_DATOS_ADMINISTRADORES.child(user.getUid()).updateChildren(resultado).addOnSuccessListener(unused11 -> {
-                Toast.makeText(Cambio_Pass.this, "Contraseña cambiada", Toast.LENGTH_SHORT).show();
+            HashMap<String, Object> result = new HashMap<>();
+            result.put("PASSWORD", NUEVO_PASS);
+            BASE_DE_DATOS_ADMINISTRADORES.child(user.getUid()).updateChildren(result).addOnSuccessListener(unused11 -> {
+                Toast.makeText(ChangePassword.this, getString(R.string.password_success_change), Toast.LENGTH_SHORT).show();
                 firebaseAuth.signOut();
-                startActivity(new Intent(Cambio_Pass.this, InicioSesion.class));
+                startActivity(new Intent(ChangePassword.this, LoginSession.class));
                 finish();
             }).addOnFailureListener(e -> {
-                Toast.makeText(Cambio_Pass.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChangePassword.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
             });
         }).addOnFailureListener(e -> {
-            Toast.makeText(Cambio_Pass.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(ChangePassword.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             progressDialog.dismiss();
         })).addOnFailureListener(e -> {
-            Toast.makeText(Cambio_Pass.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(ChangePassword.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             progressDialog.dismiss();
         });
     }
