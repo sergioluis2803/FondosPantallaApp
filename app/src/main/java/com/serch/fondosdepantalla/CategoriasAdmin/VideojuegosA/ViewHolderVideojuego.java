@@ -55,9 +55,9 @@ public class ViewHolderVideojuego extends RecyclerView.ViewHolder {
         VistaVideojuego.setText(VistaString);
 
         try {
-            Picasso.get().load(imagen).into(ImagenVideojuego);
+            Picasso.get().load(imagen).placeholder(R.drawable.categoria).into(ImagenVideojuego);
         } catch (Exception e) {
-            Toast.makeText(context, "ERROR: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Picasso.get().load(R.drawable.categoria).into(ImagenVideojuego);
         }
 
     }
