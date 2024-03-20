@@ -66,7 +66,6 @@ public class HomeUser extends Fragment {
                             Intent intent = new Intent(view.getContext(), ControladorCD.class);
                             intent.putExtra("Categoria", category);
                             startActivity(intent);
-                            Toast.makeText(getActivity(), category, Toast.LENGTH_SHORT).show();
                         }
                 );
                 return viewHolderCD;

@@ -1,6 +1,7 @@
 package com.serch.fondosdepantalla.CategoriasCliente;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.serch.fondosdepantalla.CategoriasAdmin.SeriesA.Serie;
 import com.serch.fondosdepantalla.CategoriasAdmin.SeriesA.ViewHolderSerie;
+import com.serch.fondosdepantalla.DetalleCliente.DetalleCliente;
 import com.serch.fondosdepantalla.R;
 
 public class SeriesCliente extends AppCompatActivity {
@@ -95,7 +97,17 @@ public class SeriesCliente extends AppCompatActivity {
                 viewHolderSerie.setOnClickListener(new ViewHolderSerie.ClickListener() {
                     @Override
                     public void OnItemClick(View view, int position) {
-                        Toast.makeText(SeriesCliente.this, "ITEM CLICK", Toast.LENGTH_SHORT).show();
+                        String imagen = getItem(position).getImagen();
+                        String nombre = getItem(position).getNombre();
+                        int vistas = getItem(position).getVistas();
+                        String vistasString = String.valueOf(vistas);
+
+                        Intent intent = new Intent(SeriesCliente.this, DetalleCliente.class);
+                        intent.putExtra("Imagen", imagen);
+                        intent.putExtra("nombre", nombre);
+                        intent.putExtra("Vista", vistasString);
+
+                        startActivity(intent);
                     }
 
                     @Override
