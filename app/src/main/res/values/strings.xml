@@ -165,8 +165,16 @@
     <string name="detail_toolbar">Detalle</string>
 
     <!---->
+    <string name="CategoriasTXT">Categorias</string>
     <string name="NombreCategoriaD"> -- </string>
+    <string name="MasCategiriasTXT">Más categorías</string>
+    <string name="NombreCategoriaF"> -- </string>
 
+    <!--IMAGEN CAT FIREBASE ELEGIDA-->
+    <string name="NombreImg_Cat_Elegida"> -- </string>
+    <string name="VistaImg_Cat_Elegida"> -- </string>
+
+    <!--DETALLE IMAGEN-->
     <string name="NombreImagenTXT">Nombre de imagen</string>
     <string name="NombreImagenDetalle"> -- </string>
     <string name="VisualizacionTXT">Visualizaciones</string>

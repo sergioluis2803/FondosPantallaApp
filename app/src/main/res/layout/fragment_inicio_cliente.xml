@@ -15,8 +15,31 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:padding="5dp"
+                android:text="@string/CategoriasTXT"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvCategoryDevices"
+                android:layout_width="match_parent"
+                android:layout_height="250dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:padding="5dp"
+                android:text="@string/MasCategiriasTXT"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCategoryFirebase"
                 android:layout_width="match_parent"
                 android:layout_height="250dp" />
 
