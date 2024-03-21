@@ -108,6 +108,7 @@ public class VideojuegosA extends AppCompatActivity {
 
                     @Override
                     public void OnItemLongClick(View view, int position) {
+                        String id = getItem(position).getId();
                         String nombre = getItem(position).getNombre();
                         String imagen = getItem(position).getImagen();
                         int vista = getItem(position).getVistas();
@@ -119,13 +120,14 @@ public class VideojuegosA extends AppCompatActivity {
                         builder.setItems(opciones, (dialogInterface, i) -> {
                             if (i == 0) {
                                 Intent intent = new Intent(VideojuegosA.this, AgregarVideojuego.class);
+                                intent.putExtra("IdEnviado", id);
                                 intent.putExtra("NombreEnviado", nombre);
                                 intent.putExtra("ImagenEnviada", imagen);
                                 intent.putExtra("VistaEnviada", vistaString);
 
                                 startActivity(intent);
                             } else {
-                                EliminarDatos(nombre, imagen);
+                                EliminarDatos(id, imagen);
                             }
                         });
                         builder.create().show();
@@ -185,12 +187,12 @@ public class VideojuegosA extends AppCompatActivity {
         });
     }
 
-    private void EliminarDatos(final String NombreActual, final String ImagenActual) {
+    private void EliminarDatos(final String idActual, final String ImagenActual) {
         AlertDialog.Builder builder = new AlertDialog.Builder(VideojuegosA.this);
         builder.setTitle("Eliminar");
         builder.setMessage("¿Desea eliminar imagen?");
         builder.setPositiveButton("SI", (dialogInterface, i) -> {
-            Query query = mRef.orderByChild("nombre").equalTo(NombreActual);
+            Query query = mRef.orderByChild("id").equalTo(idActual);
             query.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {

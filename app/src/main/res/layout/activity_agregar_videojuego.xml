@@ -24,6 +24,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/NombreTXTVideojuego" />
 
+            <TextView
+                android:id="@+id/idVideojuegos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/idVideojuegos"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
             <!--NOMBRE DE LA IMAGEN-->
             <EditText
                 android:id="@+id/NombreVideojuego"

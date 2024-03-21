@@ -24,6 +24,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/NombreTXTPeliculas" />
 
+            <TextView
+                android:id="@+id/idMusica"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/idMusica"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
             <!--NOMBRE DE LA IMAGEN-->
             <EditText
                 android:id="@+id/NombreMusica"
@@ -51,8 +59,8 @@
                     android:id="@+id/VistaMusicas"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/VistaPeliculas"
                     android:layout_marginStart="10dp"
+                    android:text="@string/VistaPeliculas"
                     android:textSize="20sp" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>

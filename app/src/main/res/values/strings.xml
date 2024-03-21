@@ -51,7 +51,10 @@
     <string name="login_load">Iniciando sesión</string>
 
     <!--CATEGORIAS-->
-    <string name="Eligeunacategoria">Elige categoria</string>
+    <string name="fechaAdmin"> -- </string>
+    <string name="welcomeTXT"> Bienvenido(a): </string>
+    <string name="NombreTXT"> -- </string>
+    <string name="Eligeunacategoria">Elige una categoria</string>
     <string name="Peliculas">PELICULAS</string>
     <string name="Series">SERIES</string>
     <string name="Musica">MUSICA</string>
@@ -62,6 +65,7 @@
     <string name="Vista">Vista</string>
 
     <!--AGREGAR PELICULAS-->
+    <string name="idPeliculas"> -- </string>
     <string name="NombreTXTPeliculas">Nombre de imagen</string>
     <string name="NombrePeliculas">Escriba nombre aqui</string>
     <string name="VistaPeliculas">0</string>
@@ -70,6 +74,7 @@
     <string name="VistaPelicula"> -- </string>
 
     <!--AGREGAR MUSICA-->
+    <string name="idMusica"> -- </string>
     <string name="NombreTXTMusica">Nombre de imagen</string>
     <string name="NombreMusica">Escriba nombre aqui</string>
     <string name="VistaMusicas">0</string>
@@ -78,6 +83,7 @@
     <string name="VistaMusica"> -- </string>
 
     <!--AGREGAR SERIE-->
+    <string name="idSeries"> -- </string>
     <string name="NombreTXTSerie">Nombre de imagen</string>
     <string name="NombreSerie">Escriba nombre aqui</string>
     <string name="VistaSeries">0</string>
@@ -86,6 +92,7 @@
     <string name="VistaSerie"> -- </string>
 
     <!--AGREGAR VIDEOJUEGO-->
+    <string name="idVideojuegos"> -- </string>
     <string name="NombreTXTVideojuego">Nombre de imagen</string>
     <string name="NombreVideojuego">Escriba nombre aqui</string>
     <string name="VistaVideojuegos">0</string>

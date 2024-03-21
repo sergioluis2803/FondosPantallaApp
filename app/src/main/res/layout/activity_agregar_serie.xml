@@ -24,6 +24,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/NombreTXTSerie" />
 
+            <TextView
+                android:id="@+id/idSeries"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/idSeries"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
             <!--NOMBRE DE LA IMAGEN-->
             <EditText
                 android:id="@+id/NombreSerie"

@@ -41,10 +41,12 @@ import com.squareup.picasso.Picasso;
 import static com.google.firebase.storage.FirebaseStorage.getInstance;
 
 import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class AgregarPelicula extends AppCompatActivity {
 
-    TextView VistaPeliculas;
+    TextView VistaPeliculas, idPeliculas;
     EditText NombrePeliculas;
     ImageView ImagenAgregarPelicula;
     Button PublicarPelicula;
@@ -57,7 +59,7 @@ public class AgregarPelicula extends AppCompatActivity {
     DatabaseReference DatabaseReference;
     MyProgressDialog progressDialog;
 
-    String rNombre, rImagen, rVista;
+    String rId,rNombre, rImagen, rVista;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +81,7 @@ public class AgregarPelicula extends AppCompatActivity {
         NombrePeliculas = findViewById(R.id.NombrePeliculas);
         ImagenAgregarPelicula = findViewById(R.id.ImagenAgregarPelicula);
         PublicarPelicula = findViewById(R.id.PublicarPelicula);
+        idPeliculas = findViewById(R.id.idPeliculas);
 
         mStorageReference = FirebaseStorage.getInstance().getReference();
         DatabaseReference = FirebaseDatabase.getInstance().getReference(RutaDeBaseDeDatos);
@@ -87,11 +90,12 @@ public class AgregarPelicula extends AppCompatActivity {
 
         Bundle intent = getIntent().getExtras();
         if (intent != null) {
+            rId = intent.getString("IdEnviado");
             rNombre = intent.getString("NombreEnviado");
             rImagen = intent.getString("ImagenEnviada");
             rVista = intent.getString("VistaEnviada");
 
-
+            idPeliculas.setText(rId);
             NombrePeliculas.setText(rNombre);
             VistaPeliculas.setText(rVista);
             Picasso.get().load(rImagen).into(ImagenAgregarPelicula);
@@ -156,7 +160,7 @@ public class AgregarPelicula extends AppCompatActivity {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference("PELICULAS");
 
-        Query query = databaseReference.orderByChild("nombre").equalTo(rNombre);
+        Query query = databaseReference.orderByChild("id").equalTo(rId);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -187,11 +191,15 @@ public class AgregarPelicula extends AppCompatActivity {
                 while (!uriTask.isSuccessful()) ;
 
                 Uri downloadURI = uriTask.getResult();
+                String ID = new SimpleDateFormat("yyyy-MM-dd/HH:mm:ss", Locale.getDefault()).format(System.currentTimeMillis());
+                idPeliculas.setText(ID);
+
                 String mNombre = NombrePeliculas.getText().toString();
+                String nId = idPeliculas.getText().toString();
                 String mVista = VistaPeliculas.getText().toString();
                 int VISTA = Integer.parseInt(mVista);
 
-                Pelicula pelicula = new Pelicula(downloadURI.toString(), mNombre, VISTA);
+                Pelicula pelicula = new Pelicula(mNombre + "/" + nId,downloadURI.toString(), mNombre, VISTA);
                 String ID_IMAGEN = DatabaseReference.push().getKey();
                 assert ID_IMAGEN != null;
                 DatabaseReference.child(ID_IMAGEN).setValue(pelicula);

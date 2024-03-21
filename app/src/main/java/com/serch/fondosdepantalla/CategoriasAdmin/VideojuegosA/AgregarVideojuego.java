@@ -41,10 +41,12 @@ import com.serch.fondosdepantalla.util.MyProgressDialog;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class AgregarVideojuego extends AppCompatActivity {
 
-    TextView VistaVideojuego;
+    TextView VistaVideojuego, idVideojuegos;
     EditText NombreVideojuego;
     ImageView ImagenAgregarVideojuego;
     Button PublicarVideojuego;
@@ -57,7 +59,7 @@ public class AgregarVideojuego extends AppCompatActivity {
     DatabaseReference DatabaseReference;
     MyProgressDialog progressDialog;
 
-    String rNombre, rImagen, rVista;
+    String rId,rNombre, rImagen, rVista;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +80,7 @@ public class AgregarVideojuego extends AppCompatActivity {
         NombreVideojuego = findViewById(R.id.NombreVideojuego);
         ImagenAgregarVideojuego = findViewById(R.id.ImagenAgregarVideojuego);
         PublicarVideojuego = findViewById(R.id.PublicarVideojuego);
+        idVideojuegos = findViewById(R.id.idVideojuegos);
 
         mStorageReference = FirebaseStorage.getInstance().getReference();
         DatabaseReference = FirebaseDatabase.getInstance().getReference(RutaDeBaseDeDatos);
@@ -86,11 +89,12 @@ public class AgregarVideojuego extends AppCompatActivity {
 
         Bundle intent = getIntent().getExtras();
         if (intent != null) {
+            rId = intent.getString("IdEnviado");
             rNombre = intent.getString("NombreEnviado");
             rImagen = intent.getString("ImagenEnviada");
             rVista = intent.getString("VistaEnviada");
 
-
+            idVideojuegos.setText(rId);
             NombreVideojuego.setText(rNombre);
             VistaVideojuego.setText(rVista);
             Picasso.get().load(rImagen).into(ImagenAgregarVideojuego);
@@ -153,7 +157,7 @@ public class AgregarVideojuego extends AppCompatActivity {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference("VIDEOJUEGOS");
 
-        Query query = databaseReference.orderByChild("nombre").equalTo(rNombre);
+        Query query = databaseReference.orderByChild("id").equalTo(rId);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -184,11 +188,16 @@ public class AgregarVideojuego extends AppCompatActivity {
                 while (!uriTask.isSuccessful()) ;
 
                 Uri downloadURI = uriTask.getResult();
+
+                String ID = new SimpleDateFormat("yyyy-MM-dd/HH:mm:ss", Locale.getDefault()).format(System.currentTimeMillis());
+                idVideojuegos.setText(ID);
+
                 String mNombre = NombreVideojuego.getText().toString();
+                String nId = idVideojuegos.getText().toString();
                 String mVista = VistaVideojuego.getText().toString();
                 int VISTA = Integer.parseInt(mVista);
 
-                Videojuego videojuego = new Videojuego(downloadURI.toString(), mNombre, VISTA);
+                Videojuego videojuego = new Videojuego(mNombre + "/" + nId,downloadURI.toString(), mNombre, VISTA);
                 String ID_IMAGEN = DatabaseReference.push().getKey();
                 assert ID_IMAGEN != null;
                 DatabaseReference.child(ID_IMAGEN).setValue(videojuego);

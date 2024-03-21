@@ -1,17 +1,27 @@
 package com.serch.fondosdepantalla.CategoriasAdmin.PeliculasA;
 
 public class Pelicula {
+    private String id;
     private String imagen;
     private String nombre;
     private int vistas;
 
-    public Pelicula(String imagen, String nombres, int vistas) {
+    public Pelicula(String id, String imagen, String nombre, int vistas) {
+        this.id = id;
         this.imagen = imagen;
-        this.nombre = nombres;
+        this.nombre = nombre;
         this.vistas = vistas;
     }
 
     public Pelicula() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getImagen() {

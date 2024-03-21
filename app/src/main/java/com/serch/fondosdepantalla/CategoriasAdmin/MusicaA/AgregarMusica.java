@@ -37,10 +37,12 @@ import com.serch.fondosdepantalla.util.MyProgressDialog;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class AgregarMusica extends AppCompatActivity {
 
-    TextView VistaMusicas;
+    TextView VistaMusicas, idMusica;
     EditText NombreMusica;
     ImageView ImagenAgregarMusica;
     Button PublicarMusica;
@@ -53,7 +55,8 @@ public class AgregarMusica extends AppCompatActivity {
     DatabaseReference DatabaseReference;
     MyProgressDialog progressDialog;
 
-    String rNombre, rImagen, rVista;
+    String rId, rNombre, rImagen, rVista;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +77,7 @@ public class AgregarMusica extends AppCompatActivity {
         NombreMusica = findViewById(R.id.NombreMusica);
         ImagenAgregarMusica = findViewById(R.id.ImagenAgregarMusica);
         PublicarMusica = findViewById(R.id.PublicarMusica);
+        idMusica = findViewById(R.id.idMusica);
 
         mStorageReference = FirebaseStorage.getInstance().getReference();
         DatabaseReference = FirebaseDatabase.getInstance().getReference(RutaDeBaseDeDatos);
@@ -82,11 +86,12 @@ public class AgregarMusica extends AppCompatActivity {
 
         Bundle intent = getIntent().getExtras();
         if (intent != null) {
+            rId = intent.getString("IdEnviado");
             rNombre = intent.getString("NombreEnviado");
             rImagen = intent.getString("ImagenEnviada");
             rVista = intent.getString("VistaEnviada");
 
-
+            idMusica.setText(rId);
             NombreMusica.setText(rNombre);
             VistaMusicas.setText(rVista);
             Picasso.get().load(rImagen).into(ImagenAgregarMusica);
@@ -97,7 +102,7 @@ public class AgregarMusica extends AppCompatActivity {
         }
 
         ImagenAgregarMusica.setOnClickListener(view -> selectImageLauncher.launch("image/*"));
-        PublicarMusica.setOnClickListener(task ->  {
+        PublicarMusica.setOnClickListener(task -> {
             if (PublicarMusica.getText().equals("Publicar")) {
                 SubirImagen();
             } else {
@@ -149,7 +154,7 @@ public class AgregarMusica extends AppCompatActivity {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference("MUSICA");
 
-        Query query = databaseReference.orderByChild("nombre").equalTo(rNombre);
+        Query query = databaseReference.orderByChild("id").equalTo(rId);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -180,11 +185,16 @@ public class AgregarMusica extends AppCompatActivity {
                 while (!uriTask.isSuccessful()) ;
 
                 Uri downloadURI = uriTask.getResult();
+
+                String ID = new SimpleDateFormat("yyyy-MM-dd/HH:mm:ss", Locale.getDefault()).format(System.currentTimeMillis());
+                idMusica.setText(ID);
+
                 String mNombre = NombreMusica.getText().toString();
+                String nId = idMusica.getText().toString();
                 String mVista = VistaMusicas.getText().toString();
                 int VISTA = Integer.parseInt(mVista);
 
-                Musica musica = new Musica(downloadURI.toString(), mNombre, VISTA);
+                Musica musica = new Musica(mNombre + "/" + nId, downloadURI.toString(), mNombre, VISTA);
                 String ID_IMAGEN = DatabaseReference.push().getKey();
                 assert ID_IMAGEN != null;
                 DatabaseReference.child(ID_IMAGEN).setValue(musica);

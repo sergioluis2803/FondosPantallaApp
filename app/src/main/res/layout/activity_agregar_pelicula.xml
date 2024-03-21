@@ -24,6 +24,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/NombreTXTPeliculas" />
 
+            <TextView
+                android:id="@+id/idPeliculas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/idPeliculas"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
             <!--NOMBRE DE LA IMAGEN-->
             <EditText
                 android:id="@+id/NombrePeliculas"

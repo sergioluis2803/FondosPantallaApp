@@ -2,6 +2,8 @@ package com.serch.fondosdepantalla.CategoriasAdmin.VideojuegosA;
 
 public class Videojuego {
 
+
+    private String id;
     private String imagen;
     private String nombre;
     private int vistas;
@@ -9,10 +11,19 @@ public class Videojuego {
     public Videojuego() {
     }
 
-    public Videojuego(String imagen, String nombres, int vistas) {
+    public Videojuego(String id, String imagen, String nombre, int vistas) {
+        this.id = id;
         this.imagen = imagen;
-        this.nombre = nombres;
+        this.nombre = nombre;
         this.vistas = vistas;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getImagen() {

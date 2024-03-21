@@ -41,10 +41,12 @@ import com.serch.fondosdepantalla.util.MyProgressDialog;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class AgregarSerie extends AppCompatActivity {
 
-    TextView VistaSeries;
+    TextView VistaSeries, idSeries;
     EditText NombreSerie;
     ImageView ImagenAgregarSerie;
     Button PublicarSerie;
@@ -56,7 +58,7 @@ public class AgregarSerie extends AppCompatActivity {
     StorageReference mStorageReference;
     DatabaseReference DatabaseReference;
     MyProgressDialog progressDialog;
-    String rNombre, rImagen, rVista;
+    String rId,rNombre, rImagen, rVista;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +80,7 @@ public class AgregarSerie extends AppCompatActivity {
         NombreSerie = findViewById(R.id.NombreSerie);
         ImagenAgregarSerie = findViewById(R.id.ImagenAgregarSerie);
         PublicarSerie = findViewById(R.id.PublicarSerie);
+        idSeries = findViewById(R.id.idSeries);
 
         mStorageReference = FirebaseStorage.getInstance().getReference();
         DatabaseReference = FirebaseDatabase.getInstance().getReference(RutaDeBaseDeDatos);
@@ -86,11 +89,12 @@ public class AgregarSerie extends AppCompatActivity {
 
         Bundle intent = getIntent().getExtras();
         if (intent != null) {
+            rId = intent.getString("IdEnviado");
             rNombre = intent.getString("NombreEnviado");
             rImagen = intent.getString("ImagenEnviada");
             rVista = intent.getString("VistaEnviada");
 
-
+            idSeries.setText(rId);
             NombreSerie.setText(rNombre);
             VistaSeries.setText(rVista);
             Picasso.get().load(rImagen).into(ImagenAgregarSerie);
@@ -154,7 +158,7 @@ public class AgregarSerie extends AppCompatActivity {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference("SERIE");
 
-        Query query = databaseReference.orderByChild("nombre").equalTo(rNombre);
+        Query query = databaseReference.orderByChild("id").equalTo(rId);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -185,11 +189,16 @@ public class AgregarSerie extends AppCompatActivity {
                 while (!uriTask.isSuccessful()) ;
 
                 Uri downloadURI = uriTask.getResult();
+
+                String ID = new SimpleDateFormat("yyyy-MM-dd/HH:mm:ss", Locale.getDefault()).format(System.currentTimeMillis());
+                idSeries.setText(ID);
+
                 String mNombre = NombreSerie.getText().toString();
+                String nId = idSeries.getText().toString();
                 String mVista = VistaSeries.getText().toString();
                 int VISTA = Integer.parseInt(mVista);
 
-                Serie serie = new Serie(downloadURI.toString(), mNombre, VISTA);
+                Serie serie = new Serie(mNombre + "/" + nId,downloadURI.toString(), mNombre, VISTA);
                 String ID_IMAGEN = DatabaseReference.push().getKey();
                 assert ID_IMAGEN != null;
                 DatabaseReference.child(ID_IMAGEN).setValue(serie);
