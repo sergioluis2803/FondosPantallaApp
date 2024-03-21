@@ -5,7 +5,8 @@ import com.serch.fondosdepantalla.R;
 public enum MenuItemUser {
     HOME_USER(R.id.InicioCliente),
     INFO(R.id.AcercaDe),
-    SHARE(R.id.Compartir);
+    SHARE(R.id.Compartir),
+    ADMIN(R.id.Administrador);
 
     private final int id;
 

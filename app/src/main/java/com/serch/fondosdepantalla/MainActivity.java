@@ -12,6 +12,7 @@ import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 import com.serch.fondosdepantalla.FragmentosCliente.Info;
+import com.serch.fondosdepantalla.FragmentosCliente.Login_Admin;
 import com.serch.fondosdepantalla.FragmentosCliente.Share;
 import com.serch.fondosdepantalla.FragmentosCliente.HomeUser;
 import com.serch.fondosdepantalla.Modelo.MenuItemUser;
@@ -67,6 +68,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     break;
                 case SHARE:
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Share()).commit();
+                    break;
+                case ADMIN:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Login_Admin()).commit();
                     break;
                 default:
                     break;

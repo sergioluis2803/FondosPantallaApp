@@ -214,6 +214,14 @@ public class ListaCategoriaFirebase extends AppCompatActivity {
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        if (databaseReference != null && valueEventListener != null) {
+            databaseReference.removeEventListener(valueEventListener);
+        }
+    }
+
+    @Override
     public boolean onSupportNavigateUp() {
         getOnBackPressedDispatcher().onBackPressed();
         return super.onSupportNavigateUp();
