@@ -26,12 +26,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.serch.fondosdepantalla.CategoriasAdmin.MusicaA.Musica;
 import com.serch.fondosdepantalla.CategoriasAdmin.MusicaA.ViewHolderMusica;
+import com.serch.fondosdepantalla.CategoriasAdmin.PeliculasA.Pelicula;
 import com.serch.fondosdepantalla.DetalleCliente.DetalleCliente;
 import com.serch.fondosdepantalla.R;
+
+import java.util.HashMap;
 
 public class MusicaCliente extends AppCompatActivity {
 
@@ -44,6 +50,8 @@ public class MusicaCliente extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
     Dialog dialog;
+
+    ValueEventListener valueEventListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +88,15 @@ public class MusicaCliente extends AppCompatActivity {
         }
     }
 
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mRef != null && valueEventListener != null) {
+            mRef.removeEventListener(valueEventListener);
+        }
+    }
+
     private void ListarImagenesMusica() {
         options = new FirebaseRecyclerOptions.Builder<Musica>().setQuery(mRef, Musica.class).build();
 
@@ -98,10 +115,32 @@ public class MusicaCliente extends AppCompatActivity {
                 viewHolderMusica.setOnClickListener(new ViewHolderMusica.ClickListener() {
                     @Override
                     public void OnItemClick(View view, int position) {
+                        String id = getItem(position).getId();
                         String imagen = getItem(position).getImagen();
                         String nombre = getItem(position).getNombre();
                         int vistas = getItem(position).getVistas();
                         String vistasString = String.valueOf(vistas);
+
+                        valueEventListener = mRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for (DataSnapshot ds : snapshot.getChildren()) {
+                                    Pelicula pelicula = ds.getValue(Pelicula.class);
+
+                                    if (pelicula.getId().equals(id)) {
+                                        int i = 1;
+                                        HashMap<String, Object> hashMap = new HashMap<>();
+                                        hashMap.put("vistas", vistas + i);
+                                        ds.getRef().updateChildren(hashMap);
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
 
                         Intent intent = new Intent(MusicaCliente.this, DetalleCliente.class);
                         intent.putExtra("Imagen", imagen);
