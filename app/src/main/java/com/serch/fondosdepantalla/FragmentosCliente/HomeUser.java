@@ -11,11 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.serch.fondosdepantalla.Apartado_Informativo.Informacion;
+import com.serch.fondosdepantalla.Apartado_Informativo.ViewHolderInformacion;
 import com.serch.fondosdepantalla.Categorias.Cat_Dispositivo.CategoriaD;
 import com.serch.fondosdepantalla.Categorias.Cat_Dispositivo.ViewHolderCD;
 import com.serch.fondosdepantalla.Categorias.Cat_Firebase.CategoriaF;
@@ -24,16 +27,23 @@ import com.serch.fondosdepantalla.Categorias.ControladorCD;
 import com.serch.fondosdepantalla.CategoriasClienteFirebase.ListaCategoriaFirebase;
 import com.serch.fondosdepantalla.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class HomeUser extends Fragment {
 
-    RecyclerView rvCategoryDevices, rvCategoryFirebase;
-    FirebaseDatabase firebaseDatabase, firebaseDatabaseF;
-    DatabaseReference databaseReference, databaseReferenceF;
-    LinearLayoutManager linearLayoutManager, linearLayoutManagerF;
+    RecyclerView rvCategoryDevices, rvCategoryFirebase, rvInfo;
+    FirebaseDatabase firebaseDatabase, firebaseDatabaseF, firebaseDatabaseInfo;
+    DatabaseReference databaseReference, databaseReferenceF, databaseReferenceInfo;
+    LinearLayoutManager linearLayoutManager, linearLayoutManagerF, linearLayoutManagerInfo;
     FirebaseRecyclerAdapter<CategoriaD, ViewHolderCD> firebaseRecyclerAdapter;
     FirebaseRecyclerAdapter<CategoriaF, ViewHolderCF> firebaseRecyclerAdapterF;
+    FirebaseRecyclerAdapter<Informacion, ViewHolderInformacion> firebaseRecyclerAdapterInfo;
     FirebaseRecyclerOptions<CategoriaD> optionsD;
     FirebaseRecyclerOptions<CategoriaF> optionsF;
+    FirebaseRecyclerOptions<Informacion> optionsInfo;
+
+    TextView fecha;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,12 +51,15 @@ public class HomeUser extends Fragment {
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseDatabaseF = FirebaseDatabase.getInstance();
+        firebaseDatabaseInfo = FirebaseDatabase.getInstance();
 
         databaseReference = firebaseDatabase.getReference("CATEGORIAS_D");
         databaseReferenceF = firebaseDatabaseF.getReference("CATEGORIAS_F");
+        databaseReferenceInfo = firebaseDatabaseInfo.getReference("INFORMACION");
 
         linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         linearLayoutManagerF = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        linearLayoutManagerInfo = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
 
         rvCategoryDevices = view.findViewById(R.id.rvCategoryDevices);
         rvCategoryDevices.setHasFixedSize(true);
@@ -56,10 +69,44 @@ public class HomeUser extends Fragment {
         rvCategoryFirebase.setHasFixedSize(true);
         rvCategoryFirebase.setLayoutManager(linearLayoutManagerF);
 
+        rvInfo = view.findViewById(R.id.rvInfo);
+        rvInfo.setHasFixedSize(true);
+        rvInfo.setLayoutManager(linearLayoutManagerInfo);
+
+        fecha = view.findViewById(R.id.fecha);
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d 'de' MMMM 'del' yyyy");
+        String stringDate = simpleDateFormat.format(date);
+        fecha.setText(stringDate);
+
         showCategoryDevice();
         showCategoryFirebase();
+        showInfo();
 
         return view;
+    }
+
+    private void showInfo() {
+        optionsInfo = new FirebaseRecyclerOptions.Builder<Informacion>().setQuery(databaseReferenceInfo, Informacion.class).build();
+        firebaseRecyclerAdapterInfo = new FirebaseRecyclerAdapter<Informacion, ViewHolderInformacion>(optionsInfo) {
+            @Override
+            protected void onBindViewHolder(@NonNull ViewHolderInformacion viewHolderInformacion, int i, @NonNull Informacion informacion) {
+                viewHolderInformacion.setInformation(getActivity(), informacion.getNombre(), informacion.getImagen());
+            }
+
+            @NonNull
+            @Override
+            public ViewHolderInformacion onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.apartado_informativo, parent, false);
+                ViewHolderInformacion viewHolderInformacion = new ViewHolderInformacion(itemView);
+                viewHolderInformacion.setOnClickListener((view, position) -> {
+                        }
+                );
+                return viewHolderInformacion;
+            }
+        };
+
+        rvInfo.setAdapter(firebaseRecyclerAdapterInfo);
     }
 
     private void showCategoryFirebase() {
@@ -119,9 +166,10 @@ public class HomeUser extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        if (firebaseRecyclerAdapter != null && firebaseRecyclerAdapterF != null) {
+        if (firebaseRecyclerAdapter != null && firebaseRecyclerAdapterF != null && firebaseRecyclerAdapterInfo != null) {
             firebaseRecyclerAdapter.startListening();
             firebaseRecyclerAdapterF.startListening();
+            firebaseRecyclerAdapterInfo.startListening();
         }
     }
 }

@@ -169,6 +169,7 @@
     <string name="NombreCategoriaD"> -- </string>
     <string name="MasCategiriasTXT">Más categorías</string>
     <string name="NombreCategoriaF"> -- </string>
+    <string name="InfoTXT">Disfruta de nuestra app</string>
 
     <!--IMAGEN CAT FIREBASE ELEGIDA-->
     <string name="NombreImg_Cat_Elegida"> -- </string>
@@ -179,4 +180,9 @@
     <string name="NombreImagenDetalle"> -- </string>
     <string name="VisualizacionTXT">Visualizaciones</string>
     <string name="VistaDetalle"> -- </string>
+
+    <!---->
+    <string name="TituloInformativoTXT"> -- </string>
+
+    <string name="fecha"> -- </string>
 </resources>
