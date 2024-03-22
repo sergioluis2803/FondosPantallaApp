@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -34,7 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.serch.fondosdepantalla.CategoriasAdmin.MusicaA.Musica;
 import com.serch.fondosdepantalla.CategoriasAdmin.MusicaA.ViewHolderMusica;
 import com.serch.fondosdepantalla.CategoriasAdmin.PeliculasA.Pelicula;
-import com.serch.fondosdepantalla.DetalleCliente.DetalleCliente;
+import com.serch.fondosdepantalla.DetalleCliente.DetalleImagen;
 import com.serch.fondosdepantalla.R;
 
 import java.util.HashMap;
@@ -142,7 +141,7 @@ public class MusicaCliente extends AppCompatActivity {
                             }
                         });
 
-                        Intent intent = new Intent(MusicaCliente.this, DetalleCliente.class);
+                        Intent intent = new Intent(MusicaCliente.this, DetalleImagen.class);
                         intent.putExtra("Imagen", imagen);
                         intent.putExtra("nombre", nombre);
                         intent.putExtra("Vista", vistasString);

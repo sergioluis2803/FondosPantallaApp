@@ -29,7 +29,7 @@
             android:name=".CategoriasClienteFirebase.ListaCategoriaFirebase"
             android:exported="false" />
         <activity
-            android:name=".DetalleCliente.DetalleCliente"
+            android:name=".DetalleCliente.DetalleImagen"
             android:exported="false" />
         <activity
             android:name=".Categorias.ControladorCD"

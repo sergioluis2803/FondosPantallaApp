@@ -192,9 +192,8 @@
     <!---->
     <string name="TituloInformativoTXT"> -- </string>
 
-    <string name="fecha"> -- </string>
-
     <!--ACERCA DE APLICACION-->
+    <string name="fecha"> -- </string>
     <string name="AcercaDeApp">Acerca De</string>
     <string name="InfoDesarrollador">Desarrollado por: Sergio Mostacero</string>
     <string name="InfoCorreo">sergiomv2803@gmail.com</string>
@@ -204,6 +203,21 @@
     <string name="ir_instagram">Instagram</string>
     <string name="ir_twitter">Twitter</string>
     <string name="ir_linkedin">Linkedin</string>
+
+    <!--CONECTIVIDAD-->
     <string name="SinConexionTXT">Sin conexión a internet</string>
 
+    <!--ANIMACIONES-->
+    <!--ACTIVAR PERMISOS-->
+    <string name="ACTIVEPERMISOS">ACTIVE LOS PERMISOS DE ALMACENAMIENTO</string>
+    <string name="OKPERMISOS">OK</string>
+
+    <!--DSECARGA EXITOSA-->
+    <string name="DESCARGAEXITOSATXT">DESCARGA EXITOSA</string>
+    <string name="GUARDADOENTXT">Guardado en la carpeta Fondos</string>
+    <string name="OKDESCARGA">OK</string>
+
+    <!--ESTABLECER COMO FONDO-->
+    <string name="ESTABLECIDOTXT">SE ESTABLECIÓ COMO FONDO DE PANTALLA</string>
+    <string name="OKESTABLECIDO">OK</string>
 </resources>

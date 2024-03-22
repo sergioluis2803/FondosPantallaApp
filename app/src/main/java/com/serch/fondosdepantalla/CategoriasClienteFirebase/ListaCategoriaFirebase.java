@@ -31,8 +31,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.serch.fondosdepantalla.CategoriasAdmin.PeliculasA.Pelicula;
-import com.serch.fondosdepantalla.DetalleCliente.DetalleCliente;
+import com.serch.fondosdepantalla.DetalleCliente.DetalleImagen;
 import com.serch.fondosdepantalla.R;
 
 import java.util.HashMap;
@@ -127,7 +126,7 @@ public class ListaCategoriaFirebase extends AppCompatActivity {
 
                         }
                     });
-                    Intent intent = new Intent(ListaCategoriaFirebase.this, DetalleCliente.class);
+                    Intent intent = new Intent(ListaCategoriaFirebase.this, DetalleImagen.class);
                     intent.putExtra("Imagen", imagen);
                     intent.putExtra("nombre", nombre);
                     intent.putExtra("Vista", vistasString);

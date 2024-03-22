@@ -1,6 +1,7 @@
 package com.serch.fondosdepantalla.DetalleCliente;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.app.WallpaperManager;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -15,6 +16,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,7 +42,7 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.Objects;
 
-public class DetalleCliente extends AppCompatActivity {
+public class DetalleImagen extends AppCompatActivity {
 
     ImageView ImagenDetalle;
     TextView NombreImagenDetalle, VistaDetalle;
@@ -50,10 +52,12 @@ public class DetalleCliente extends AppCompatActivity {
 
     private final Uri imageUri = null;
 
+    Dialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detalle_cliente);
+        setContentView(R.layout.activity_detalle_imagen);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -74,6 +78,7 @@ public class DetalleCliente extends AppCompatActivity {
         fabCompartir = findViewById(R.id.fabCompartir);
         fabEstablecer = findViewById(R.id.fabEstablecer);
 
+        dialog = new Dialog(this);
 
         String imagen = getIntent().getStringExtra("Imagen");
         String nombres = getIntent().getStringExtra("nombre");
@@ -89,7 +94,7 @@ public class DetalleCliente extends AppCompatActivity {
 
         fabDescargar.setOnClickListener(task -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                if (ContextCompat.checkSelfPermission(DetalleCliente.this,
+                if (ContextCompat.checkSelfPermission(DetalleImagen.this,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager
                         .PERMISSION_GRANTED) {
                     downloadImage11();
@@ -97,7 +102,7 @@ public class DetalleCliente extends AppCompatActivity {
                     SolicitudPermisoDescargaAndroid11oSuperior.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
                 }
             } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (ContextCompat.checkSelfPermission(DetalleCliente.this,
+                if (ContextCompat.checkSelfPermission(DetalleImagen.this,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager
                         .PERMISSION_GRANTED) {
                     downloadImage();
@@ -122,7 +127,7 @@ public class DetalleCliente extends AppCompatActivity {
 
         try {
             wallpaperManager.setBitmap(bitmap);
-            Toast.makeText(this, "Establecido con éxito", Toast.LENGTH_SHORT).show();
+            Animacion_Establecido();
         } catch (Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
@@ -145,7 +150,7 @@ public class DetalleCliente extends AppCompatActivity {
             fos = resolver.openOutputStream(Objects.requireNonNull(imageUri));
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
             Objects.requireNonNull(fos);
-            Toast.makeText(this, "Imagen descargada con éxito", Toast.LENGTH_SHORT).show();
+            Animacion_Descarga_Exitosa();
         } catch (Exception e) {
             Toast.makeText(this, "No se pudo descargar la imagen", Toast.LENGTH_SHORT).show();
         }
@@ -170,7 +175,7 @@ public class DetalleCliente extends AppCompatActivity {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
             outputStream.flush();
             outputStream.close();
-            Toast.makeText(this, "La imagen se ha descargado con éxito", Toast.LENGTH_SHORT).show();
+            Animacion_Descarga_Exitosa();
         } catch (Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
@@ -181,7 +186,7 @@ public class DetalleCliente extends AppCompatActivity {
         if (isGranted) {
             downloadImage();
         } else {
-            Toast.makeText(this, "El permiso ha sido denegado", Toast.LENGTH_SHORT).show();
+            Animacion_Active_Permisos();
         }
     });
 
@@ -190,7 +195,7 @@ public class DetalleCliente extends AppCompatActivity {
                 if (isGranted) {
                     downloadImage11();
                 } else {
-                    Toast.makeText(this, "El permiso ha sido denegado", Toast.LENGTH_SHORT).show();
+                    Animacion_Active_Permisos();
                 }
             });
 
@@ -246,4 +251,34 @@ public class DetalleCliente extends AppCompatActivity {
         return contentUri;
     }
 
+    private void Animacion_Active_Permisos() {
+        Button OKPERMISOS;
+        dialog.setContentView(R.layout.animacion_permiso);
+        OKPERMISOS = dialog.findViewById(R.id.OKPERMISOS);
+
+        OKPERMISOS.setOnClickListener(task -> dialog.dismiss());
+
+        dialog.show();
+        dialog.setCancelable(false);
+    }
+
+    private void Animacion_Descarga_Exitosa(){
+        Button OKDESCARGA;
+
+        dialog.setContentView(R.layout.animacion_descarga_exitosa);
+        OKDESCARGA = dialog.findViewById(R.id.OKDESCARGA);
+        OKDESCARGA.setOnClickListener(task -> dialog.dismiss());
+        dialog.show();
+        dialog.setCancelable(false);
+    }
+
+    private void Animacion_Establecido(){
+        Button OKESTABLECIDO;
+
+        dialog.setContentView(R.layout.animacion_establecido);
+        OKESTABLECIDO = dialog.findViewById(R.id.OKESTABLECIDO);
+        OKESTABLECIDO.setOnClickListener(task -> dialog.dismiss());
+        dialog.show();
+        dialog.setCancelable(false);
+    }
 }

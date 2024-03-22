@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -30,11 +29,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.serch.fondosdepantalla.CategoriasAdmin.PeliculasA.Pelicula;
 import com.serch.fondosdepantalla.CategoriasAdmin.PeliculasA.ViewHolderPelicula;
-import com.serch.fondosdepantalla.DetalleCliente.DetalleCliente;
+import com.serch.fondosdepantalla.DetalleCliente.DetalleImagen;
 import com.serch.fondosdepantalla.R;
 
 import java.util.HashMap;
-import java.util.Objects;
 
 public class PeliculasCliente extends AppCompatActivity {
 
@@ -117,7 +115,7 @@ public class PeliculasCliente extends AppCompatActivity {
                             }
                         });
 
-                        Intent intent = new Intent(PeliculasCliente.this, DetalleCliente.class);
+                        Intent intent = new Intent(PeliculasCliente.this, DetalleImagen.class);
                         intent.putExtra("Imagen", imagen);
                         intent.putExtra("nombre", nombre);
                         intent.putExtra("Vista", vistasString);
