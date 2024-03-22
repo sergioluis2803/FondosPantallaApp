@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     tools:context=".FragmentosCliente.HomeUser">
 
@@ -11,8 +12,10 @@
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ConConexion"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="gone"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -80,6 +83,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_marginTop="5dp" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <!--NO HAY INTERNET-->
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/SinConexion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="@string/SinConexionTXT"
+                android:textColor="#9B7718"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="15dp"
+                app:lottie_imageAssetsFolder="assets"
+                app:lottie_fileName="desconectado.json"
+                app:lottie_loop="true"
+                app:lottie_autoPlay="true" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

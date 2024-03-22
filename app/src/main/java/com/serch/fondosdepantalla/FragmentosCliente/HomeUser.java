@@ -1,9 +1,15 @@
 package com.serch.fondosdepantalla.FragmentosCliente;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkRequest;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,9 +51,17 @@ public class HomeUser extends Fragment {
 
     TextView fecha;
 
+    LinearLayoutCompat ConCOnexion, SinConexion;
+
+    ConnectivityManager.NetworkCallback networkCallback;
+    ConnectivityManager connectivityManager;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_inicio_cliente, container, false);
+
+        ConCOnexion = view.findViewById(R.id.ConConexion);
+        SinConexion = view.findViewById(R.id.SinConexion);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseDatabaseF = FirebaseDatabase.getInstance();
@@ -84,6 +98,43 @@ public class HomeUser extends Fragment {
         showInfo();
 
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        connectivityManager = (ConnectivityManager) requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        networkCallback = new ConnectivityManager.NetworkCallback() {
+
+            @Override
+            public void onAvailable(@NonNull Network network) {
+                //EXISTE CONEXION DE RED DISPONIBLE
+
+                requireActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ConCOnexion.setVisibility(View.VISIBLE);
+                        SinConexion.setVisibility(View.GONE);
+                    }
+                });
+            }
+
+            @Override
+            public void onLost(@NonNull Network network) {
+                //SE PERDIO LA CONEXION DE INTERNET
+
+                requireActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ConCOnexion.setVisibility(View.GONE);
+                        SinConexion.setVisibility(View.VISIBLE);
+                    }
+                });
+            }
+        };
+
+        NetworkRequest networkRequest = new NetworkRequest.Builder().build();
+        connectivityManager.registerNetworkCallback(networkRequest, networkCallback);
     }
 
     private void showInfo() {
@@ -171,5 +222,11 @@ public class HomeUser extends Fragment {
             firebaseRecyclerAdapterF.startListening();
             firebaseRecyclerAdapterInfo.startListening();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        connectivityManager.unregisterNetworkCallback(networkCallback);
     }
 }

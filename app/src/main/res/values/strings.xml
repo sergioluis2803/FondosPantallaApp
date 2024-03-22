@@ -204,5 +204,6 @@
     <string name="ir_instagram">Instagram</string>
     <string name="ir_twitter">Twitter</string>
     <string name="ir_linkedin">Linkedin</string>
+    <string name="SinConexionTXT">Sin conexión a internet</string>
 
 </resources>
