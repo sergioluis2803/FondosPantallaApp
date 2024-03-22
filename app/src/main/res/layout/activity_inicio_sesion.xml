@@ -42,6 +42,8 @@
                 android:id="@+id/Correo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableStart="@drawable/correo_et"
+                android:drawablePadding="5dp"
                 android:hint="@string/Correo"
                 android:autofillHints="emailAddress"
                 android:inputType="textEmailAddress" />
@@ -58,6 +60,8 @@
                 android:id="@+id/Password"
                 android:autofillHints="password"
                 android:layout_width="match_parent"
+                android:drawableStart="@drawable/pass_et"
+                android:drawablePadding="5dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/Password"
                 android:inputType="textPassword" />

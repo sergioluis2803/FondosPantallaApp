@@ -220,4 +220,12 @@
     <!--ESTABLECER COMO FONDO-->
     <string name="ESTABLECIDOTXT">SE ESTABLECIÓ COMO FONDO DE PANTALLA</string>
     <string name="OKESTABLECIDO">OK</string>
+
+
+    <!--COMPARTIR APLICACION-->
+    <string name="AyudanosTXT">Ayudanos a crecer compartiendo nuestra app la cual es de manera gratuita</string>
+    <string name="BotonCompartir">Compartir App</string>
+
+    <!--APARTADO ADMINISTRADORES-->
+    <string name="SoloadminTXT">Solo para administradores</string>
 </resources>
