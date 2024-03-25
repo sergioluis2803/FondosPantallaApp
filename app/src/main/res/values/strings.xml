@@ -228,4 +228,7 @@
 
     <!--APARTADO ADMINISTRADORES-->
     <string name="SoloadminTXT">Solo para administradores</string>
+
+    <!--TEST-->
+    <string name="prueba">PRUEBA</string>
 </resources>
