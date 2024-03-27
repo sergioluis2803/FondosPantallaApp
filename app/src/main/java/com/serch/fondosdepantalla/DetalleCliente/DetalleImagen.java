@@ -8,7 +8,6 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.ImageDecoder;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -16,6 +15,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -95,11 +95,10 @@ public class DetalleImagen extends AppCompatActivity {
         fabDescargar.setOnClickListener(task -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 if (ContextCompat.checkSelfPermission(DetalleImagen.this,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager
-                        .PERMISSION_GRANTED) {
+                        Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED) {
                     downloadImage11();
                 } else {
-                    SolicitudPermisoDescargaAndroid11oSuperior.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                    SolicitudPermisoDescargaAndroid11oSuperior.launch(Manifest.permission.READ_MEDIA_IMAGES);
                 }
             } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (ContextCompat.checkSelfPermission(DetalleImagen.this,
@@ -219,37 +218,35 @@ public class DetalleImagen extends AppCompatActivity {
 
     private Uri getContentUri() {
         BitmapDrawable bitmapDrawable = (BitmapDrawable) ImagenDetalle.getDrawable();
-        bitmap = bitmapDrawable.getBitmap();
-
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                ImageDecoder.Source source =
-                        ImageDecoder.createSource(getContentResolver(), imageUri);
-                bitmap = ImageDecoder.decodeBitmap(source);
-            } else {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-            }
-        } catch (Exception e) {
-        }
+        Bitmap bitmap = bitmapDrawable.getBitmap();
 
         File imageFolder = new File(getCacheDir(), "images");
         Uri contentUri = null;
 
         try {
-            String NombreImagen = NombreImagenDetalle.getText().toString();
-            imageFolder.mkdirs();
+            if (!imageFolder.exists()) {
+                if (!imageFolder.mkdirs()) {
+                    Log.e("TAG", "Failed to create directory");
+                    return null;
+                }
+            }
+
             File file = new File(imageFolder, "shared_image.png");
             FileOutputStream stream = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
             stream.flush();
             stream.close();
             contentUri = FileProvider.getUriForFile(
-                    this, "com.redsystem.fondodepantalla.fileprovider", file);
+                    this, "com.serch.fondosdepantalla.fileprovider", file);
         } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("TAG", "Error saving image: " + e.getMessage());
         }
 
         return contentUri;
     }
+
+
 
     private void Animacion_Active_Permisos() {
         Button OKPERMISOS;

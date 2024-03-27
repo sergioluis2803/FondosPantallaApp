@@ -8,6 +8,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResult;
@@ -15,6 +16,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.core.content.ContextCompat;
@@ -40,7 +42,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
-import com.serch.fondosdepantalla.MainActivityAdmin;
 import com.serch.fondosdepantalla.R;
 import com.serch.fondosdepantalla.util.MyProgressDialogFragment;
 import com.squareup.picasso.Picasso;
@@ -129,6 +130,45 @@ public class ProfileAdmin extends Fragment {
         return view;
     }
 
+    private void changeImageProfileAdmin() {
+        String[] options = {"Cambiar foto de perfil"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(getString(R.string.choose_option));
+
+        builder.setItems(options, (dialogInterface, i) -> {
+            if (i == 0) {
+                imageProfile = "IMAGEN";
+                choosePhoto();
+            }
+        });
+        builder.create().show();
+    }
+
+    private void choosePhoto() {
+        String[] options = getResources().getStringArray(R.array.choose_photo_option);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(getString(R.string.select_photo_from));
+        builder.setItems(options, (dialogInterface, i) -> {
+            if (i == 0) {
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                    chooseCamara();
+                } else {
+                    requestPermissionCamara.launch(Manifest.permission.CAMERA);
+                }
+            } else if (i == 1) {
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_MEDIA_IMAGES)
+                        == PackageManager.PERMISSION_GRANTED) {
+                    chooseGallery();
+                } else {
+                    requestPermissionGallery.launch(Manifest.permission.READ_MEDIA_IMAGES);
+                }
+            }
+        });
+
+        builder.create().show();
+    }
+
     private void editData() {
         String[] options = getResources().getStringArray(R.array.options);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -187,44 +227,6 @@ public class ProfileAdmin extends Fragment {
 
         builder.setNegativeButton(getString(R.string.button_negative), (dialogInterface, i) ->
                 Toast.makeText(getActivity(), getString(R.string.message_cancel), Toast.LENGTH_SHORT).show());
-
-        builder.create().show();
-    }
-
-    private void changeImageProfileAdmin() {
-        String[] options = {"Cambiar foto de perfil"};
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(getString(R.string.choose_option));
-
-        builder.setItems(options, (dialogInterface, i) -> {
-            if (i == 0) {
-                imageProfile = "IMAGEN";
-                choosePhoto();
-            }
-        });
-        builder.create().show();
-    }
-
-    private void choosePhoto() {
-        String[] options = getResources().getStringArray(R.array.choose_photo_option);
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(getString(R.string.select_photo_from));
-        builder.setItems(options, (dialogInterface, i) -> {
-            if (i == 0) {
-                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-                    chooseCamara();
-                } else {
-                    requestPermissionCamara.launch(Manifest.permission.CAMERA);
-                }
-            } else if (i == 1) {
-                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                    chooseGallery();
-                } else {
-                    requestPermissionGallery.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                }
-            }
-        });
 
         builder.create().show();
     }
@@ -311,8 +313,6 @@ public class ProfileAdmin extends Fragment {
                 results.put(imageProfile, download.toString());
                 DB_ADMIN.child(user.getUid()).updateChildren(results).addOnSuccessListener(unused -> {
                     progressDialog.dismiss();
-                    startActivity(new Intent(getActivity(), MainActivityAdmin.class));
-                    getActivity().finish();
                     Toast.makeText(getActivity(), getString(R.string.change_image_success), Toast.LENGTH_SHORT).show();
                 }).addOnFailureListener(task -> Toast.makeText(getActivity(), task.getMessage(), Toast.LENGTH_SHORT).show());
             } else {
