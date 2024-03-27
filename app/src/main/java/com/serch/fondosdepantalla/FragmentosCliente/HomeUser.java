@@ -29,7 +29,10 @@ import com.serch.fondosdepantalla.Categorias.Cat_Dispositivo.CategoriaD;
 import com.serch.fondosdepantalla.Categorias.Cat_Dispositivo.ViewHolderCD;
 import com.serch.fondosdepantalla.Categorias.Cat_Firebase.CategoriaF;
 import com.serch.fondosdepantalla.Categorias.Cat_Firebase.ViewHolderCF;
-import com.serch.fondosdepantalla.Categorias.ControladorCD;
+import com.serch.fondosdepantalla.CategoriasCliente.MusicaCliente;
+import com.serch.fondosdepantalla.CategoriasCliente.PeliculasCliente;
+import com.serch.fondosdepantalla.CategoriasCliente.SeriesCliente;
+import com.serch.fondosdepantalla.CategoriasCliente.VideojuegosCliente;
 import com.serch.fondosdepantalla.CategoriasClienteFirebase.ListaCategoriaFirebase;
 import com.serch.fondosdepantalla.R;
 
@@ -109,26 +112,18 @@ public class HomeUser extends Fragment {
             @Override
             public void onAvailable(@NonNull Network network) {
                 //EXISTE CONEXION DE RED DISPONIBLE
-
-                requireActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        ConCOnexion.setVisibility(View.VISIBLE);
-                        SinConexion.setVisibility(View.GONE);
-                    }
+                requireActivity().runOnUiThread(() -> {
+                    ConCOnexion.setVisibility(View.VISIBLE);
+                    SinConexion.setVisibility(View.GONE);
                 });
             }
 
             @Override
             public void onLost(@NonNull Network network) {
                 //SE PERDIO LA CONEXION DE INTERNET
-
-                requireActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        ConCOnexion.setVisibility(View.GONE);
-                        SinConexion.setVisibility(View.VISIBLE);
-                    }
+                requireActivity().runOnUiThread(() -> {
+                    ConCOnexion.setVisibility(View.GONE);
+                    SinConexion.setVisibility(View.VISIBLE);
                 });
             }
         };
@@ -202,9 +197,20 @@ public class HomeUser extends Fragment {
                 ViewHolderCD viewHolderCD = new ViewHolderCD(itemView);
                 viewHolderCD.setOnClickListener((view, position) -> {
                             String category = getItem(position).getCategoria();
-                            Intent intent = new Intent(view.getContext(), ControladorCD.class);
-                            intent.putExtra("Categoria", category);
-                            startActivity(intent);
+                            switch (category) {
+                                case "Peliculas":
+                                    startActivity(new Intent(getActivity(), PeliculasCliente.class));
+                                    break;
+                                case "Series":
+                                    startActivity(new Intent(getActivity(), SeriesCliente.class));
+                                    break;
+                                case "Musica":
+                                    startActivity(new Intent(getActivity(), MusicaCliente.class));
+                                    break;
+                                case "Videojuegos":
+                                    startActivity(new Intent(getActivity(), VideojuegosCliente.class));
+                                    break;
+                            }
                         }
                 );
                 return viewHolderCD;

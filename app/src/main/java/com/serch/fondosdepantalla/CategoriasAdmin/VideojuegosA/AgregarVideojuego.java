@@ -125,7 +125,6 @@ public class AgregarVideojuego extends AppCompatActivity {
     private void EliminarImagenAnterior() {
         StorageReference Imagen = getInstance().getReferenceFromUrl(rImagen);
         Imagen.delete().addOnSuccessListener(task -> {
-            Toast.makeText(this, "La imagen anterior a sido eliminada", Toast.LENGTH_SHORT).show();
             SubirNuevaImagen();
         }).addOnFailureListener(task -> Toast.makeText(this, task.getMessage(), Toast.LENGTH_SHORT).show());
 

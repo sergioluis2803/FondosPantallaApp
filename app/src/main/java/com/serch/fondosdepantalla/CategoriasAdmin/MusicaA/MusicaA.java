@@ -103,7 +103,6 @@ public class MusicaA extends AppCompatActivity {
                 viewHolderMusica.setOnClickListener(new ViewHolderMusica.ClickListener() {
                     @Override
                     public void OnItemClick(View view, int position) {
-                        Toast.makeText(MusicaA.this, "ITEM CLICK", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -162,8 +161,6 @@ public class MusicaA extends AppCompatActivity {
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         ds.getRef().removeValue();
                     }
-
-                    Toast.makeText(MusicaA.this, "La imagen ha sido eliminada", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override

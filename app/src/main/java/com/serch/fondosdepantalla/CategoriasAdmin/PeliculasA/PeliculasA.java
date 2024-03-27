@@ -89,8 +89,6 @@ public class PeliculasA extends AppCompatActivity {
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         ds.getRef().removeValue();
                     }
-
-                    Toast.makeText(PeliculasA.this, "La imagen ha sido eliminada", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -126,7 +124,6 @@ public class PeliculasA extends AppCompatActivity {
                 viewHolderPelicula.setOnClickListener(new ViewHolderPelicula.ClickListener() {
                     @Override
                     public void OnItemClick(View view, int position) {
-                        Toast.makeText(PeliculasA.this, "ITEM CLICK", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

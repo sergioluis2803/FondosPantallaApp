@@ -114,7 +114,6 @@ public class ListAdmin extends Fragment {
         inflater.inflate(R.menu.menu_buscar, menu);
         MenuItem item = menu.findItem(R.id.buscar_administrador);
 
-        //SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
         SearchView searchView = (SearchView) item.getActionView();
         assert searchView != null;
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

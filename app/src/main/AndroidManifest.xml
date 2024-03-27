@@ -32,9 +32,6 @@
             android:name=".DetalleCliente.DetalleImagen"
             android:exported="false" />
         <activity
-            android:name=".Categorias.ControladorCD"
-            android:exported="false" />
-        <activity
             android:name=".CategoriasCliente.VideojuegosCliente"
             android:exported="false" />
         <activity

@@ -103,7 +103,6 @@ public class VideojuegosA extends AppCompatActivity {
                 viewHolderVideojuego.setOnClickListener(new ViewHolderVideojuego.ClickListener() {
                     @Override
                     public void OnItemClick(View view, int position) {
-                        Toast.makeText(VideojuegosA.this, "ITEM CLICK", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -199,8 +198,6 @@ public class VideojuegosA extends AppCompatActivity {
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         ds.getRef().removeValue();
                     }
-
-                    Toast.makeText(VideojuegosA.this, "La imagen ha sido eliminada", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override

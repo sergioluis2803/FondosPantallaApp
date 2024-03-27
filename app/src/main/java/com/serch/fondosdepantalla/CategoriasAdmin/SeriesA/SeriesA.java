@@ -105,7 +105,6 @@ public class SeriesA extends AppCompatActivity {
                 viewHolderSerie.setOnClickListener(new ViewHolderSerie.ClickListener() {
                     @Override
                     public void OnItemClick(View view, int position) {
-                        Toast.makeText(SeriesA.this, "ITEM CLICK", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -165,8 +164,6 @@ public class SeriesA extends AppCompatActivity {
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         ds.getRef().removeValue();
                     }
-
-                    Toast.makeText(SeriesA.this, "La imagen ha sido eliminada", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override

@@ -78,10 +78,7 @@ public class ListaCategoriaFirebase extends AppCompatActivity {
 
         dialog = new Dialog(ListaCategoriaFirebase.this);
 
-
         listCategoryChoose();
-
-
     }
 
     private void listCategoryChoose() {
@@ -123,7 +120,6 @@ public class ListaCategoriaFirebase extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-
                         }
                     });
                     Intent intent = new Intent(ListaCategoriaFirebase.this, DetalleImagen.class);
